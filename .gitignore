@@ -1,1 +1,3 @@
 .gitconfig
+*.DS_STORE
+*/xcdebugger

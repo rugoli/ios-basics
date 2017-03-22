@@ -6,7 +6,7 @@
 //  Copyright © 2017 Roshan Goli. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "URLViewController.h"
 
 #import "AppDelegate.h"
 
@@ -20,7 +20,7 @@
 {
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
 	
-	ViewController *viewController = [[ViewController alloc] init];
+	URLViewController *viewController = [[URLViewController alloc] init];
 	
 	self.window.rootViewController = viewController;
 	[self.window makeKeyAndVisible];

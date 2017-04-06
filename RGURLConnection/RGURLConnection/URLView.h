@@ -8,17 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol URLViewDelegate;
-
 @interface URLView : UIView
 
-@property (nonatomic, weak, readwrite) id<URLViewDelegate> delegate;
+- (instancetype)initWithSearchBar:(UISearchBar *)searchBar
+												tableView:(UITableView *)tableView;
 
 @end
-
-@protocol URLViewDelegate
-
-- (void)URLViewDidTapFetchData:(URLView *)urlView;
-
-@end
-

@@ -7,67 +7,71 @@
 //
 
 #import "URLViewController.h"
+#import "RGiTunesTableCellViewModel.h"
+#import "RGTableViewCell.h"
+#import "RGTableViewDataSource.h"
 #import "URLView.h"
 
-@interface URLViewController () <URLViewDelegate, NSURLSessionDelegate>
+static NSString *const kCellReuseIdentifier = @"itunes_cell";
+
+@interface URLViewController () <UISearchBarDelegate, RGTableViewDataSourceDelegate>
 @end
 
-@implementation URLViewController
+@implementation URLViewController {
+	URLView *_myView;
+	
+	UITableView *_tableView;
+	
+	RGTableViewDataSource *_dataSource;
+}
+
+- (instancetype)init
+{
+	if (self = [super init]) {
+		_dataSource = [[RGTableViewDataSource alloc] initWithReuseIdentifier:kCellReuseIdentifier];
+		_dataSource.delegate = self;
+		
+		_tableView = [[UITableView alloc] initWithFrame:CGRectZero
+																							style:UITableViewStylePlain];
+		_tableView.dataSource = _dataSource;
+		_tableView.delegate = _dataSource;
+	}
+	return self;
+}
 
 - (void)loadView
 {
 	[super loadView];
-	URLView *myView = [[URLView alloc] initWithFrame:CGRectZero];
-	[myView setBackgroundColor:[UIColor redColor]];
-	myView.delegate = self;
-
-	self.view = myView;
+	
+	UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+	searchBar.delegate = self;
+	
+	_myView = [[URLView alloc] initWithSearchBar:searchBar
+																		 tableView:_tableView];
+	[_tableView registerClass:[RGTableViewCell class]
+		 forCellReuseIdentifier:kCellReuseIdentifier];
+	self.view = _myView;
 }
 
-# pragma mark - URLViewDelegate methods
-
-- (void)URLViewDidTapFetchData:(URLView *)urlView
+- (void)viewDidLayoutSubviews
 {
-	NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/search?term=apple&media=software"];
-
-	NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
-																													 delegate:self
-																											delegateQueue:[NSOperationQueue mainQueue]];
-	__typeof (self) weakSelf = self;
-	NSURLSessionDataTask *downloadTask = [urlSession dataTaskWithURL:url
-																								 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-																									 if (error) {
-																										 NSLog(@"Oh no, an error: %@", error.description);
-																										 return;
-																									 }
-																									 [weakSelf handleDownloadWithData:data response:response];
-																								 }];
-	[downloadTask resume];
+	[super viewDidLayoutSubviews];
+	[_myView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
 }
 
-- (void)handleDownloadWithData:(NSData *)data
-											response:(NSURLResponse *)response
+# pragma mark - UISearchBarDelegate methods
+
+- (void)searchBar:(UISearchBar *)searchBar
+		textDidChange:(NSString *)searchText
 {
-	NSLog(@"data");
+	[_dataSource executeSearchQuery:searchText];
 }
 
-# pragma mark - NSURLSessionDelegate methods
+# pragma mark - RGTableViewDataSourceDelegate methods
 
-- (void)URLSession:(NSURLSession *)session
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler
+- (void)dataSourceFinishedFetch:(RGTableViewDataSource *)dataSource
 {
-	NSLog(@"testing");
-}
-
-- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(nullable NSError *)error
-{
-	NSLog(@"test");
-}
-
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
-{
-	NSLog(@"test");
+	[_tableView reloadData];
 }
 
 @end

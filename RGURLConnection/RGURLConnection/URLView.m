@@ -9,22 +9,20 @@
 #import "URLView.h"
 
 @implementation URLView {
-	UILabel *_textLabel;
-	UIButton *_fetchDataButton;
+	UISearchBar *_searchBar;
+	UITableView *_tableView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithSearchBar:(UISearchBar *)searchBar
+												tableView:(UITableView *)tableView
 {
-	if (self = [super initWithFrame:frame]) {
-		_fetchDataButton = [[UIButton alloc] initWithFrame:CGRectZero];
-		[_fetchDataButton setTitle:@"Fetch Data" forState:UIControlStateNormal];
-		[_fetchDataButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-		[_fetchDataButton addTarget:self action:@selector(tappedFetchDataButton:) forControlEvents:UIControlEventTouchUpInside];
-		[self addSubview:_fetchDataButton];
+	if (self = [super initWithFrame:CGRectZero]) {
+		_searchBar = searchBar;
+		_searchBar.placeholder = @"Search in iTunes";
+		[self addSubview:_searchBar];
 		
-		_textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_textLabel.text = @"hello";
-		[self addSubview:_textLabel];
+		_tableView = tableView;
+		[self addSubview:_tableView];
 	}
 	return self;
 }
@@ -32,22 +30,13 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	CGRect bounds = self.bounds;
-	CGFloat x = bounds.size.width / 2.0, y = 100;
-
-	CGSize buttonSize = [_fetchDataButton sizeThatFits:bounds.size];
-	_fetchDataButton.frame = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
-	_fetchDataButton.center = CGPointMake(x, y);
-	y += 30;
+	CGFloat y = 0;
 	
-	_textLabel.frame = CGRectMake(0, 0, 20, 20);
-	[_textLabel sizeToFit];
-	_textLabel.center = CGPointMake(x, y);
-}
-
-- (void)tappedFetchDataButton:(UIButton *)sender
-{
-	[_delegate URLViewDidTapFetchData:self];
+	[_searchBar setFrame:CGRectZero];
+	[_searchBar sizeToFit];
+	y += _searchBar.bounds.size.height;
+	
+	[_tableView setFrame:CGRectMake(0, y, self.bounds.size.width, self.bounds.size.height - y)];
 }
 
 @end

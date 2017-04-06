@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface RGTableViewDataSource : NSObject
+@protocol RGTableViewDataSourceDelegate;
+
+@interface RGTableViewDataSource : NSObject <UITableViewDataSource>
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
+
+- (void)executeSearchQuery:(NSString *)query;
+
+@property (nonatomic, weak, readwrite) id<RGTableViewDataSourceDelegate> delegate;
+
+@end
+
+@protocol RGTableViewDataSourceDelegate
+
+- (void)dataSourceFinishedFetch:(RGTableViewDataSource *)dataSource;
 
 @end

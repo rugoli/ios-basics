@@ -11,11 +11,11 @@
 
 @protocol RGTableViewDataSourceDelegate;
 
-@interface RGTableViewDataSource : NSObject <UITableViewDataSource>
+@interface RGTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 
-- (void)executeSearchQuery:(NSString *)query;
+- (void)executeNewSearchQuery:(NSString *)query;
 
 @property (nonatomic, weak, readwrite) id<RGTableViewDataSourceDelegate> delegate;
 

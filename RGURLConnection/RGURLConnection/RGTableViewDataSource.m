@@ -17,9 +17,13 @@
 
 @implementation RGTableViewDataSource {
 	NSMutableArray<RGiTunesTableCellViewModel *> *_results;
+	NSString *_currentQuery;
+	BOOL _isFetching;
+	
 	NSString *_cellReuseIdentifier;
 	
 	NSURLSession *_urlSession;
+	
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
@@ -29,6 +33,7 @@
 																								delegate:self
 																					 delegateQueue:[NSOperationQueue mainQueue]];
 		_results = [NSMutableArray new];
+		_isFetching = NO;
 		_cellReuseIdentifier = [reuseIdentifier copy];
 	}
 	return self;
@@ -36,25 +41,45 @@
 
 # pragma mark - Public methods
 
-- (void)executeSearchQuery:(NSString *)query
+- (void)executeNewSearchQuery:(NSString *)query
 {
-	if (query.length > 0) {
-		__typeof (self) weakSelf = self;
-		NSURLSessionDataTask *downloadTask = [_urlSession dataTaskWithURL:[NSURL URLWithString:UrlQueryForSearchTerm(query)]
-																									 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-																										 if (error) {
-																											 NSLog(@"Oh no, an error: %@", error.description);
-																											 return;
-																										 }
-																										 [weakSelf handleDownloadWithData:data response:response];
-																									 }];
-		[downloadTask resume];
+	[_results removeAllObjects];
+	_currentQuery = [query copy];
+	if (_currentQuery.length > 0) {
+		[self _searchWithCurrentQueryAndOffset];
+	} else {
+		[_delegate dataSourceFinishedFetch:self];
 	}
 }
 
-static NSString *UrlQueryForSearchTerm(NSString *query)
+- (void)_fetchMoreResults
 {
-	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@", query];
+	[self _searchWithCurrentQueryAndOffset];
+}
+
+- (void)_searchWithCurrentQueryAndOffset
+{
+	__typeof (self) weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
+		__strong __typeof(self) strongSelf = weakSelf;
+		if (strongSelf) {
+			NSURLSessionDataTask *downloadTask = [_urlSession dataTaskWithURL:[NSURL URLWithString:[strongSelf _urlSearchQuery]]
+																											completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+																												if (error) {
+																													NSLog(@"Oh no, an error: %@", error.description);
+																													return;
+																												}
+																												[weakSelf handleDownloadWithData:data response:response];
+																											}];
+			strongSelf->_isFetching = YES;
+			[downloadTask resume];
+		}
+	});
+}
+
+-(NSString *)_urlSearchQuery
+{
+	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu", _currentQuery, (unsigned long)_results.count];
 }
 
 - (void)handleDownloadWithData:(NSData *)data
@@ -74,7 +99,6 @@ static NSString *UrlQueryForSearchTerm(NSString *query)
 
 - (void)generateViewModelsFromResults:(NSArray *)results
 {
-	[_results removeAllObjects];
 	__weak __typeof(self) weakSelf = self;
 	[results enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		__strong __typeof(self) strongSelf = weakSelf;
@@ -88,7 +112,14 @@ static NSString *UrlQueryForSearchTerm(NSString *query)
 		[strongSelf->_results addObject:[[RGiTunesTableCellViewModel alloc] initWithName:result[@"trackName"]
 																																							author:result[@"artistName"]]];
 	}];
-	[_delegate dataSourceFinishedFetch:self];
+
+	dispatch_async(dispatch_get_main_queue(), ^{
+		__strong __typeof(self) strongSelf = weakSelf;
+		if (strongSelf) {
+			strongSelf->_isFetching = NO;
+			[_delegate dataSourceFinishedFetch:strongSelf];
+		}
+	});
 }
 
 # pragma mark - NSURLSessionDelegate methods
@@ -124,6 +155,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 - (UITableViewCell *)tableView:(UITableView *)tableView
 				 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	if (!_isFetching && indexPath.row >= _results.count - 10) {
+		[self _fetchMoreResults];
+	}
 	RGTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier];
 	RGiTunesTableCellViewModel *const viewModel = [_results objectAtIndex:indexPath.row];
 	if (cell) {

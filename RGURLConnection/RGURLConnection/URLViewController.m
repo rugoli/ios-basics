@@ -64,7 +64,7 @@ static NSString *const kCellReuseIdentifier = @"itunes_cell";
 - (void)searchBar:(UISearchBar *)searchBar
 		textDidChange:(NSString *)searchText
 {
-	[_dataSource executeSearchQuery:searchText];
+	[_dataSource executeNewSearchQuery:[searchText stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
 }
 
 # pragma mark - RGTableViewDataSourceDelegate methods
@@ -72,6 +72,11 @@ static NSString *const kCellReuseIdentifier = @"itunes_cell";
 - (void)dataSourceFinishedFetch:(RGTableViewDataSource *)dataSource
 {
 	[_tableView reloadData];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+	return YES;
 }
 
 @end

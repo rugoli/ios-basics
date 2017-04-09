@@ -12,12 +12,27 @@
 
 - (instancetype)initWithName:(NSString *)name
 											author:(NSString *)author
+										imageURL:(NSString *)imageURL
 {
 	if (self = [super init]) {
 		_name = name;
 		_author = author;
+		_imageURL = [imageURL copy];
 	}
 	return self;
+}
+
+- (void)fetchImageForURL:(RGiTunesTableCellViewModelCallbackBlock)completionBlock
+{
+	NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:_imageURL]];
+	if (data == nil) {
+		return;
+	}
+	_image = [[UIImage alloc] initWithData:data];
+	
+	if (completionBlock) {
+		completionBlock(_image);
+	}
 }
 
 @end

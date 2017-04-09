@@ -19,6 +19,7 @@
 	NSMutableArray<RGiTunesTableCellViewModel *> *_results;
 	NSString *_currentQuery;
 	BOOL _isFetching;
+	BOOL _isCancelled;  // if current data fetch has been canceled
 	
 	NSString *_cellReuseIdentifier;
 	
@@ -110,7 +111,8 @@
 			return;
 		}
 		[strongSelf->_results addObject:[[RGiTunesTableCellViewModel alloc] initWithName:result[@"trackName"]
-																																							author:result[@"artistName"]]];
+																																							author:result[@"artistName"]
+																																						imageURL:result[@"artworkUrl30"]]];
 	}];
 
 	dispatch_async(dispatch_get_main_queue(), ^{
@@ -149,17 +151,15 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 	return [_results count];
 }
 
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
 - (UITableViewCell *)tableView:(UITableView *)tableView
 				 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (!_isFetching && indexPath.row >= _results.count - 10) {
 		[self _fetchMoreResults];
 	}
-	RGTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier];
+	
 	RGiTunesTableCellViewModel *const viewModel = [_results objectAtIndex:indexPath.row];
+	RGTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier];
 	if (cell) {
 		[cell configureWithNewViewModel:viewModel];
 	} else {

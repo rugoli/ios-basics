@@ -44,6 +44,7 @@
 	RGiTunesTableCellViewModel *_viewModel;
 	UILabel *_titleLabel;
 	UILabel *_authorLabel;
+	UIImageView *_imageView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -61,22 +62,52 @@
 		_authorLabel.text = _viewModel.author;
 		_authorLabel.font = [UIFont systemFontOfSize:12];
 		[self addSubview:_authorLabel];
+		
+		if (_viewModel.image == nil && _viewModel.imageURL.length > 0) {
+			__weak __typeof(self) weakSelf = self;
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+				[viewModel fetchImageForURL:^(UIImage *image) {
+					[weakSelf _addImageViewWithImage:image];
+				}];
+			});
+		} else {
+			[self _addImageViewWithImage:viewModel.image];
+		}
 	}
 	return self;
 }
+
+- (void)_addImageViewWithImage:(UIImage *)image
+{
+	__weak __typeof(self) weakSelf = self;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		__strong __typeof(self) strongSelf = weakSelf;
+		if (strongSelf && image) {
+			strongSelf->_imageView = [[UIImageView alloc] initWithImage:image];
+			[strongSelf addSubview:strongSelf->_imageView];
+			[strongSelf setNeedsLayout];
+		}
+	});
+}
+
 
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
 	
 	CGFloat kSidePadding = 10, kTopBottomPadding = 5;
-	CGFloat y = kTopBottomPadding;
+	CGFloat x = kSidePadding, y = kTopBottomPadding;
 	
-	CGSize titleSize = [_titleLabel sizeThatFits:CGSizeMake(self.bounds.size.width - 2*kSidePadding, self.bounds.size.height)];
-	[_titleLabel setFrame:CGRectMake(kSidePadding, y, titleSize.width, titleSize.height)];
+	if (_imageView)  {
+		[_imageView setFrame:CGRectMake(x, y, _imageView.bounds.size.width, _imageView.bounds.size.height)];
+		x += _imageView.bounds.size.width + 10;
+	}
 	
-	CGSize authorSize = [_authorLabel sizeThatFits:CGSizeMake(self.bounds.size.width - 2*kSidePadding, self.bounds.size.height)];
-	[_authorLabel setFrame:CGRectMake(kSidePadding, self.bounds.size.height - authorSize.height - kTopBottomPadding, authorSize.width, authorSize.height)];
+	CGSize titleSize = [_titleLabel sizeThatFits:CGSizeMake(self.bounds.size.width - kSidePadding - x, self.bounds.size.height)];
+	[_titleLabel setFrame:CGRectMake(x, y, titleSize.width, titleSize.height)];
+	
+	CGSize authorSize = [_authorLabel sizeThatFits:CGSizeMake(self.bounds.size.width - kSidePadding - x, self.bounds.size.height)];
+	[_authorLabel setFrame:CGRectMake(x, self.bounds.size.height - authorSize.height - kTopBottomPadding, authorSize.width, authorSize.height)];
 }
 
 @end

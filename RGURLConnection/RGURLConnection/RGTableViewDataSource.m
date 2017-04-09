@@ -13,13 +13,16 @@
 #import "RGTableViewCell.h"
 
 @interface RGTableViewDataSource () <NSURLSessionDelegate>
+
+@property (atomic, readonly, assign) BOOL isFetching;
+@property (atomic, readonly, assign) BOOL isCancelled; // if current data fetch has been canceled
+
 @end
 
 @implementation RGTableViewDataSource {
 	NSMutableArray<RGiTunesTableCellViewModel *> *_results;
 	NSString *_currentQuery;
-	BOOL _isFetching;
-	BOOL _isCancelled;  // if current data fetch has been canceled
+	BOOL _isCancelled;
 	
 	NSString *_cellReuseIdentifier;
 	
@@ -60,6 +63,10 @@
 
 - (void)_searchWithCurrentQueryAndOffset
 {
+	if (_isFetching) {
+		_isCancelled = YES;
+		return;
+	}
 	__typeof (self) weakSelf = self;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
 		__strong __typeof(self) strongSelf = weakSelf;
@@ -78,6 +85,14 @@
 	});
 }
 
+- (void)_previousQueryCanceled
+{
+	_isCancelled = NO;
+	_isFetching = NO;
+	[_results removeAllObjects];
+	[self _searchWithCurrentQueryAndOffset];
+}
+
 -(NSString *)_urlSearchQuery
 {
 	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu", _currentQuery, (unsigned long)_results.count];
@@ -86,6 +101,10 @@
 - (void)handleDownloadWithData:(NSData *)data
 											response:(NSURLResponse *)response
 {
+	if (_isCancelled) {
+		[self _previousQueryCanceled];
+		return;
+	}
 	NSError *error;
 	NSDictionary *const dict = [NSJSONSerialization JSONObjectWithData:data
 																														 options:NSJSONReadingMutableContainers
@@ -100,6 +119,10 @@
 
 - (void)generateViewModelsFromResults:(NSArray *)results
 {
+	if (_isCancelled) {
+		[self _previousQueryCanceled];
+		return;
+	}
 	__weak __typeof(self) weakSelf = self;
 	[results enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		__strong __typeof(self) strongSelf = weakSelf;

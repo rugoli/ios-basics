@@ -11,6 +11,7 @@
 #import "RGTableViewDataSource.h"
 #import "RGiTunesTableCellViewModel.h"
 #import "RGTableViewCell.h"
+#import "RGDataFetchOperation.h"
 
 @interface RGTableViewDataSource () <NSURLSessionDelegate>
 
@@ -28,6 +29,8 @@
 	
 	NSURLSession *_urlSession;
 	
+	NSOperationQueue *_operationQueue;
+	RGDataFetchOperation *_currentOperation;
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
@@ -39,6 +42,10 @@
 		_results = [NSMutableArray new];
 		_isFetching = NO;
 		_cellReuseIdentifier = [reuseIdentifier copy];
+		
+		_operationQueue = [NSOperationQueue new];
+		_operationQueue.name = @"RG itunes data fetching";
+		_operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
 	}
 	return self;
 }
@@ -56,95 +63,43 @@
 	}
 }
 
-- (void)_fetchMoreResults
-{
-	[self _searchWithCurrentQueryAndOffset];
-}
-
 - (void)_searchWithCurrentQueryAndOffset
 {
-	if (_isFetching) {
-		_isCancelled = YES;
-		return;
-	}
-	__typeof (self) weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
-		__strong __typeof(self) strongSelf = weakSelf;
-		if (strongSelf) {
-			NSURLSessionDataTask *downloadTask = [_urlSession dataTaskWithURL:[NSURL URLWithString:[strongSelf _urlSearchQuery]]
-																											completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-																												if (error) {
-																													NSLog(@"Oh no, an error: %@", error.description);
-																													return;
-																												}
-																												[weakSelf handleDownloadWithData:data response:response];
-																											}];
-			strongSelf->_isFetching = YES;
-			[downloadTask resume];
-		}
-	});
+	_currentOperation = [self _newOperationForCurrentQuery];
+	[_operationQueue cancelAllOperations];
+	[_operationQueue addOperation:_currentOperation];
 }
 
-- (void)_previousQueryCanceled
+- (RGDataFetchOperation *)_newOperationForCurrentQuery
 {
-	_isCancelled = NO;
-	_isFetching = NO;
-	[_results removeAllObjects];
-	[self _searchWithCurrentQueryAndOffset];
+	__weak __typeof(self) weakSelf = self;
+	return [[RGDataFetchOperation alloc] initWithURLSession:_urlSession
+																							searchQuery:[self _urlSearchQuery]
+																						callbackBlock:^(NSArray<RGiTunesTableCellViewModel *> *results, RGDataFetchOperation *operation) {
+																							[weakSelf _addNewResults:results
+																												 fromOperation:operation];
+																						}];
+}
+
+- (void)_addNewResults:(NSArray<RGiTunesTableCellViewModel *> *)results
+				 fromOperation:(RGDataFetchOperation *)operation
+{
+	if (!results || operation != _currentOperation) {
+		return;
+	}
+	__weak __typeof(self) weakSelf = self;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		__strong __typeof(self) strongSelf = weakSelf;
+		if (strongSelf) {
+			[_results addObjectsFromArray:results];
+			[strongSelf->_delegate dataSourceFinishedFetch:strongSelf];
+		}
+	});
 }
 
 -(NSString *)_urlSearchQuery
 {
 	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu", _currentQuery, (unsigned long)_results.count];
-}
-
-- (void)handleDownloadWithData:(NSData *)data
-											response:(NSURLResponse *)response
-{
-	if (_isCancelled) {
-		[self _previousQueryCanceled];
-		return;
-	}
-	NSError *error;
-	NSDictionary *const dict = [NSJSONSerialization JSONObjectWithData:data
-																														 options:NSJSONReadingMutableContainers
-																															 error:&error];
-	if (!error) {
-		NSArray *const results = (NSArray *)[dict objectForKey:@"results"];
-		[self generateViewModelsFromResults:results];
-	} else {
-		NSLog(@"Oh no, an error: %@", [error localizedDescription]);
-	}
-}
-
-- (void)generateViewModelsFromResults:(NSArray *)results
-{
-	if (_isCancelled) {
-		[self _previousQueryCanceled];
-		return;
-	}
-	__weak __typeof(self) weakSelf = self;
-	[results enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-		__strong __typeof(self) strongSelf = weakSelf;
-		if (!strongSelf) {
-			return;
-		}
-		NSDictionary *result = (NSDictionary *)obj;
-		if (![result isKindOfClass:[NSDictionary class]]) {
-			return;
-		}
-		[strongSelf->_results addObject:[[RGiTunesTableCellViewModel alloc] initWithName:result[@"trackName"]
-																																							author:result[@"artistName"]
-																																						imageURL:result[@"artworkUrl30"]]];
-	}];
-
-	dispatch_async(dispatch_get_main_queue(), ^{
-		__strong __typeof(self) strongSelf = weakSelf;
-		if (strongSelf) {
-			strongSelf->_isFetching = NO;
-			[_delegate dataSourceFinishedFetch:strongSelf];
-		}
-	});
 }
 
 # pragma mark - NSURLSessionDelegate methods
@@ -178,7 +133,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 				 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (!_isFetching && indexPath.row >= _results.count - 10) {
-		[self _fetchMoreResults];
+		[self _searchWithCurrentQueryAndOffset];
 	}
 	
 	RGiTunesTableCellViewModel *const viewModel = [_results objectAtIndex:indexPath.row];

@@ -10,12 +10,16 @@
 #import "RGiTunesTableCellViewModel.h"
 
 @interface RGTableViewCellView : UIView
+
 - (instancetype)initWithFrame:(CGRect)frame
 										viewModel:(RGiTunesTableCellViewModel *)viewModel;
+
+- (void)configureWithNewViewModel:(RGiTunesTableCellViewModel *)viewModel;
 @end
 
 @implementation RGTableViewCell {
 	RGiTunesTableCellViewModel *_viewModel;
+	RGTableViewCellView *_contentView;
 }
 
 + (instancetype)newWithViewModel:(RGiTunesTableCellViewModel *)viewModel
@@ -31,11 +35,12 @@
 - (void)configureWithNewViewModel:(RGiTunesTableCellViewModel *)viewModel
 {
 	_viewModel = viewModel;
-	for (UIView *subviews in [self.contentView subviews]) {
-		[subviews removeFromSuperview];
-	}
-	[self.contentView addSubview:[[RGTableViewCellView alloc] initWithFrame:self.contentView.bounds
-																																viewModel:viewModel]];
+	[_contentView removeFromSuperview];
+
+	_contentView = [[RGTableViewCellView alloc] initWithFrame:self.contentView.bounds
+																									viewModel:viewModel];
+	
+	[self.contentView addSubview:_contentView];
 }
 
 @end
@@ -64,32 +69,51 @@
 		[self addSubview:_authorLabel];
 		
 		if (_viewModel.image == nil && _viewModel.imageURL.length > 0) {
-			__weak __typeof(self) weakSelf = self;
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-				[viewModel fetchImageForURL:^(UIImage *image) {
-					[weakSelf _addImageViewWithImage:image];
-				}];
-			});
+			[self _downloadAndDisplayImageForViewModel:_viewModel];
 		} else {
-			[self _addImageViewWithImage:viewModel.image];
+			[self _setImageViewWithImage:viewModel.image];
 		}
 	}
 	return self;
 }
 
-- (void)_addImageViewWithImage:(UIImage *)image
+- (void)configureWithNewViewModel:(RGiTunesTableCellViewModel *)viewModel
+{
+	_authorLabel.text = _viewModel.author;
+	_titleLabel.text = _viewModel.name;
+	[self _downloadAndDisplayImageForViewModel:viewModel];
+	
+	[self setNeedsLayout];
+}
+
+- (void)_downloadAndDisplayImageForViewModel:(RGiTunesTableCellViewModel *)viewModel
+{
+	__weak typeof(self) weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		[viewModel fetchImageForURL:^(UIImage *image) {
+			dispatch_sync(dispatch_get_main_queue(), ^{
+				[weakSelf _setImageViewWithImage:image];
+			});
+		}];
+	});
+}
+
+- (void)_setImageViewWithImage:(UIImage *)image
 {
 	__weak __typeof(self) weakSelf = self;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		__strong __typeof(self) strongSelf = weakSelf;
 		if (strongSelf && image) {
-			strongSelf->_imageView = [[UIImageView alloc] initWithImage:image];
-			[strongSelf addSubview:strongSelf->_imageView];
+			if (strongSelf->_imageView) {
+				strongSelf->_imageView.image = image;
+			} else {
+				strongSelf->_imageView = [[UIImageView alloc] initWithImage:image];
+				[strongSelf addSubview:strongSelf->_imageView];
+			}
 			[strongSelf setNeedsLayout];
 		}
 	});
 }
-
 
 - (void)layoutSubviews
 {

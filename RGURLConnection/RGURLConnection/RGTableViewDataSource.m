@@ -99,7 +99,7 @@
 
 -(NSString *)_urlSearchQuery
 {
-	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu", _currentQuery, (unsigned long)_results.count];
+	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu&media=music", _currentQuery, (unsigned long)_results.count];
 }
 
 # pragma mark - NSURLSessionDelegate methods

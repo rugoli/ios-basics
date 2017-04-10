@@ -1,0 +1,10 @@
+{
+  "xcodeVersion" : "Xcode 8.3\nBuild version 8E162",
+  "commitish" : "v3.3.1",
+  "iOS" : [
+    {
+      "hash" : "d76788e466ca5f398439b3b53ce6ba32b4e9bb97f744b4ede2fbb5221d9d06af",
+      "name" : "OCMock"
+    }
+  ]
+}

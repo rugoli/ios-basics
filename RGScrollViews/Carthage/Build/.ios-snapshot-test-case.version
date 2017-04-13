@@ -1,0 +1,10 @@
+{
+  "xcodeVersion" : "Xcode 8.3\nBuild version 8E162",
+  "commitish" : "2.1.4",
+  "iOS" : [
+    {
+      "hash" : "3483e2b22fb391471e25c180862851013d238f47cae09acac72adc659583ef84",
+      "name" : "FBSnapshotTestCase"
+    }
+  ]
+}

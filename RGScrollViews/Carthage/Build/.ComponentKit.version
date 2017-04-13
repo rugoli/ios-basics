@@ -1,0 +1,22 @@
+{
+  "commitish" : "0.20",
+  "iOS" : [
+    {
+      "hash" : "7746dd2c6d83dfa405e4a98948a3ff31b64140834acbecbc7a7623a422db7c95",
+      "name" : "ComponentKit"
+    }
+  ],
+  "xcodeVersion" : "Xcode 8.3\nBuild version 8E162",
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+    {
+      "hash" : "68524acd6c5d1394b332df79b85a315e8303c013290b630d0b40e1dbfa509844",
+      "name" : "ComponentKit"
+    }
+  ],
+  "Mac" : [
+
+  ]
+}

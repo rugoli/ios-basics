@@ -23,10 +23,19 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qqr-rT-lbM" customClass="DrinkCounterView">
                                 <rect key="frame" x="72.5" y="43.5" width="230" height="230"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew4-uG-qMg">
+                                        <rect key="frame" x="102" y="91" width="25" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="LnL-yd-9Xf"/>
                                     <constraint firstAttribute="height" constant="230" id="RYy-lR-vXM"/>
+                                    <constraint firstItem="ew4-uG-qMg" firstAttribute="centerX" secondItem="Qqr-rT-lbM" secondAttribute="centerX" id="xCP-f9-L56"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="arcColor">
@@ -84,6 +93,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="counterLabel" destination="ew4-uG-qMg" id="PPt-XQ-3U6"/>
                         <outlet property="counterView" destination="Qqr-rT-lbM" id="Xco-JZ-WLr"/>
                     </connections>
                 </viewController>

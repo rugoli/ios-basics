@@ -13,6 +13,7 @@
 @interface RGDrinkableViewController : UIViewController
 
 @property (nonatomic, readwrite, weak) IBOutlet DrinkCounterView *counterView;
+@property (nonatomic, readwrite, weak) IBOutlet UILabel *counterLabel;
 
 @end
 

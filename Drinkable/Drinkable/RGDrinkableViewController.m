@@ -15,16 +15,20 @@
 
 - (IBAction)tappedAddButton:(PushButtonView *)sender
 {
-	self.counterView.counter++;
-	[self.counterView setNeedsDisplay];
+	[self _updateCounter:1];
 }
 - (IBAction)tappedMinusButton:(PushButtonView *)sender
 {
-	self.counterView.counter--;
-	[self.counterView setNeedsDisplay];
+	[self _updateCounter:-1];
 }
 
-
+- (void)_updateCounter:(int)counterChange
+{
+	self.counterView.counter += counterChange;
+	self.counterLabel.text = [NSString stringWithFormat:@"%d", self.counterView.counter];
+	[self.counterView setNeedsDisplay];
+	[self.counterLabel setNeedsDisplay];
+}
 
 - (void)loadView
 {

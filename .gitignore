@@ -1,3 +1,5 @@
 .gitconfig
 *.DS_STORE
 */xcdebugger
+*.xcuserstate
+*/.xcbkptlist

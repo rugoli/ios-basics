@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0170E55C1E9AE14800CF87A0 /* RGDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0170E55B1E9AE14800CF87A0 /* RGDataFetchOperation.m */; };
+		012D9E311EA874D3009F0F7F /* RGDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 012D9E2E1EA874D3009F0F7F /* RGDataFetchOperation.m */; };
+		012D9E321EA874D3009F0F7F /* RGURLDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 012D9E301EA874D3009F0F7F /* RGURLDataFetcher.m */; };
 		0170E55F1E9AFB0C00CF87A0 /* RGCustomNSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0170E55E1E9AFB0C00CF87A0 /* RGCustomNSOperation.m */; };
 		01A4D2E61E901A4B003E3BF4 /* URLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4D2E51E901A4B003E3BF4 /* URLViewController.m */; };
 		01A4D2E91E901A5F003E3BF4 /* URLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4D2E81E901A5F003E3BF4 /* URLView.m */; };
@@ -21,8 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0170E55A1E9AE14800CF87A0 /* RGDataFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGDataFetchOperation.h; sourceTree = "<group>"; };
-		0170E55B1E9AE14800CF87A0 /* RGDataFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGDataFetchOperation.m; sourceTree = "<group>"; };
+		012D9E2D1EA874D3009F0F7F /* RGDataFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGDataFetchOperation.h; path = ../URLUtils/RGDataFetchOperation.h; sourceTree = "<group>"; };
+		012D9E2E1EA874D3009F0F7F /* RGDataFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGDataFetchOperation.m; path = ../URLUtils/RGDataFetchOperation.m; sourceTree = "<group>"; };
+		012D9E2F1EA874D3009F0F7F /* RGURLDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetcher.h; path = ../URLUtils/RGURLDataFetcher.h; sourceTree = "<group>"; };
+		012D9E301EA874D3009F0F7F /* RGURLDataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetcher.m; path = ../URLUtils/RGURLDataFetcher.m; sourceTree = "<group>"; };
 		0170E55D1E9AFB0C00CF87A0 /* RGCustomNSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGCustomNSOperation.h; path = ../../RGCustomNSOperation.h; sourceTree = "<group>"; };
 		0170E55E1E9AFB0C00CF87A0 /* RGCustomNSOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGCustomNSOperation.m; path = ../../RGCustomNSOperation.m; sourceTree = "<group>"; };
 		01A4D2E41E901A4B003E3BF4 /* URLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLViewController.h; sourceTree = "<group>"; };
@@ -55,6 +58,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		012D9E331EA874DA009F0F7F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				012D9E2D1EA874D3009F0F7F /* RGDataFetchOperation.h */,
+				012D9E2E1EA874D3009F0F7F /* RGDataFetchOperation.m */,
+				012D9E2F1EA874D3009F0F7F /* RGURLDataFetcher.h */,
+				012D9E301EA874D3009F0F7F /* RGURLDataFetcher.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		01A4D2ED1E90292E003E3BF4 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +103,6 @@
 			children = (
 				01A4D2F11E902F3D003E3BF4 /* RGTableViewDataSource.h */,
 				01A4D2F21E902F3D003E3BF4 /* RGTableViewDataSource.m */,
-				0170E55A1E9AE14800CF87A0 /* RGDataFetchOperation.h */,
-				0170E55B1E9AE14800CF87A0 /* RGDataFetchOperation.m */,
 				0170E55D1E9AFB0C00CF87A0 /* RGCustomNSOperation.h */,
 				0170E55E1E9AFB0C00CF87A0 /* RGCustomNSOperation.m */,
 			);
@@ -100,6 +112,7 @@
 		01CCE3A91E823A5C00669A11 = {
 			isa = PBXGroup;
 			children = (
+				012D9E331EA874DA009F0F7F /* Utils */,
 				01A4D2F41E903CA6003E3BF4 /* Launch Screen.storyboard */,
 				01CCE3B41E823A5C00669A11 /* RGURLConnection */,
 				01CCE3B31E823A5C00669A11 /* Products */,
@@ -211,13 +224,14 @@
 			files = (
 				01CCE3BA1E823A5C00669A11 /* AppDelegate.m in Sources */,
 				01A4D2EC1E90291F003E3BF4 /* RGiTunesTableCellViewModel.m in Sources */,
+				012D9E321EA874D3009F0F7F /* RGURLDataFetcher.m in Sources */,
 				01CCE3B71E823A5C00669A11 /* main.m in Sources */,
 				01A4D2F81E904A99003E3BF4 /* RGTableViewCell.m in Sources */,
 				01A4D2F31E902F3D003E3BF4 /* RGTableViewDataSource.m in Sources */,
+				012D9E311EA874D3009F0F7F /* RGDataFetchOperation.m in Sources */,
 				01A4D2E91E901A5F003E3BF4 /* URLView.m in Sources */,
 				01A4D2E61E901A4B003E3BF4 /* URLViewController.m in Sources */,
 				0170E55F1E9AFB0C00CF87A0 /* RGCustomNSOperation.m in Sources */,
-				0170E55C1E9AE14800CF87A0 /* RGDataFetchOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

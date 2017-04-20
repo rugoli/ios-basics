@@ -12,8 +12,9 @@
 #import "RGiTunesTableCellViewModel.h"
 #import "RGTableViewCell.h"
 #import "RGDataFetchOperation.h"
+#import "RGURLDataFetcher.h"
 
-@interface RGTableViewDataSource () <NSURLSessionDelegate>
+@interface RGTableViewDataSource () <RGDataFetcherDelegate>
 
 @property (atomic, readonly, assign) BOOL isFetching;
 @property (atomic, readonly, assign) BOOL isCancelled; // if current data fetch has been canceled
@@ -27,25 +28,18 @@
 	
 	NSString *_cellReuseIdentifier;
 	
-	NSURLSession *_urlSession;
-	
-	NSOperationQueue *_operationQueue;
-	RGDataFetchOperation *_currentOperation;
+	RGURLDataFetcher *_dataFetcher;
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 {
 	if (self = [super init]) {
-		_urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
-																								delegate:self
-																					 delegateQueue:[NSOperationQueue mainQueue]];
+		_dataFetcher = [[RGURLDataFetcher alloc] init];
+		_dataFetcher.delegate = self;
+
 		_results = [NSMutableArray new];
 		_isFetching = NO;
 		_cellReuseIdentifier = [reuseIdentifier copy];
-		
-		_operationQueue = [NSOperationQueue new];
-		_operationQueue.name = @"RG itunes data fetching";
-		_operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
 	}
 	return self;
 }
@@ -57,41 +51,28 @@
 	[_results removeAllObjects];
 	_currentQuery = [query copy];
 	if (_currentQuery.length > 0) {
-		[self _searchWithCurrentQueryAndOffset];
+		[_dataFetcher executeQuery:[self _urlSearchQuery]];
 	} else {
 		[_delegate dataSourceFinishedFetch:self];
 	}
 }
 
-- (void)_searchWithCurrentQueryAndOffset
-{
-	_currentOperation = [self _newOperationForCurrentQuery];
-	[_operationQueue cancelAllOperations];
-	[_operationQueue addOperation:_currentOperation];
-}
+# pragma mark - RGDataFetcherDelegate methods
 
-- (RGDataFetchOperation *)_newOperationForCurrentQuery
+- (void)dataFetcherDidFinishWithResults:(NSArray<id> *)results
+															 forQuery:(NSString *)query
 {
-	__weak __typeof(self) weakSelf = self;
-	return [[RGDataFetchOperation alloc] initWithURLSession:_urlSession
-																							searchQuery:[self _urlSearchQuery]
-																						callbackBlock:^(NSArray<RGiTunesTableCellViewModel *> *results, RGDataFetchOperation *operation) {
-																							[weakSelf _addNewResults:results
-																												 fromOperation:operation];
-																						}];
-}
-
-- (void)_addNewResults:(NSArray<RGiTunesTableCellViewModel *> *)results
-				 fromOperation:(RGDataFetchOperation *)operation
-{
-	if (!results || operation != _currentOperation) {
+	if (!results || ![query isEqualToString:[self _urlSearchQuery]]) {
 		return;
 	}
+	
+	NSArray<RGiTunesTableCellViewModel *> *typedResults = (NSArray<RGiTunesTableCellViewModel *> *)results;
+	
 	__weak __typeof(self) weakSelf = self;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		__strong __typeof(self) strongSelf = weakSelf;
 		if (strongSelf) {
-			[_results addObjectsFromArray:results];
+			[_results addObjectsFromArray:typedResults];
 			[strongSelf->_delegate dataSourceFinishedFetch:strongSelf];
 		}
 	});
@@ -100,25 +81,6 @@
 -(NSString *)_urlSearchQuery
 {
 	return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=20&offset=%lu&media=music", _currentQuery, (unsigned long)_results.count];
-}
-
-# pragma mark - NSURLSessionDelegate methods
-
-- (void)URLSession:(NSURLSession *)session
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler
-{
-	completionHandler(NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]);
-}
-
-- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(nullable NSError *)error
-{
-	NSLog(@"test");
-}
-
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
-{
-	NSLog(@"test");
 }
 
 # pragma mark UITableViewDataSource methods
@@ -133,7 +95,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 				 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (!_isFetching && indexPath.row >= _results.count - 10) {
-		[self _searchWithCurrentQueryAndOffset];
+		[_dataFetcher executeQuery:[self _urlSearchQuery]];
 	}
 	
 	RGiTunesTableCellViewModel *const viewModel = [_results objectAtIndex:indexPath.row];

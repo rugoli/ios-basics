@@ -1,5 +1,5 @@
 //
-//  RGDataFetchOperation.h
+//  RGURLDataFetchOperation.h
 //  RGURLConnection
 //
 //  Created by Roshan Goli on 4/9/17.
@@ -10,14 +10,21 @@
 
 #import "RGCustomNSOperation.h"
 
+@protocol RGDataFetchParser
+
++ (NSArray<id> *)parseFetchedResults:(NSDictionary *)data;
+
+@end
+
 @class RGiTunesTableCellViewModel;
 
-@interface RGDataFetchOperation : RGCustomNSOperation
+@interface RGURLDataFetchOperation : RGCustomNSOperation
 
-typedef void (^RGDataFetchCallback)(NSArray<RGiTunesTableCellViewModel *> *results, RGDataFetchOperation *operation);
+typedef void (^RGDataFetchCallback)(NSArray *results);
 
 - (instancetype)initWithURLSession:(NSURLSession *)session
 											 searchQuery:(NSString *)searchQuery
+												dataParser:(Class<RGDataFetchParser>)dataParser
 										 callbackBlock:(RGDataFetchCallback)callbackBlock;
 
 @end

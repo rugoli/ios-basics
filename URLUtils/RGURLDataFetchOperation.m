@@ -1,36 +1,37 @@
 //
-//  RGDataFetchOperation.m
+//  RGURLDataFetchOperation.m
 //  RGURLConnection
 //
 //  Created by Roshan Goli on 4/9/17.
 //  Copyright © 2017 Roshan Goli. All rights reserved.
 //
 
-#import "RGDataFetchOperation.h"
+#import "RGURLDataFetchOperation.h"
 
 #import "RGiTunesTableCellViewModel.h"
 
-@interface RGDataFetchOperation () <RGCustomNSOperation>
+@interface RGURLDataFetchOperation () <RGCustomNSOperation>
 @end
 
-@implementation RGDataFetchOperation {
+@implementation RGURLDataFetchOperation {
 	NSURLSession *_urlSession;
 	NSString *_searchQuery;
 	RGDataFetchCallback _callbackBlock;
+	Class<RGDataFetchParser> _dataParserClass;
 	
 	NSMutableArray<RGiTunesTableCellViewModel *> *_results;
 }
 
 - (instancetype)initWithURLSession:(NSURLSession *)session
 											 searchQuery:(NSString *)searchQuery
-										 callbackBlock:(RGDataFetchCallback)callbackBlock;
+												dataParser:(Class<RGDataFetchParser>)dataParser
+										 callbackBlock:(RGDataFetchCallback)callbackBlock
 {
 	if (self = [super init]) {
 		_urlSession = session;
 		_searchQuery = [searchQuery copy];
 		_callbackBlock = callbackBlock;
-		
-		_results = [NSMutableArray new];
+		_dataParserClass = dataParser;
 	}
 	return self;
 }
@@ -65,7 +66,7 @@
 											response:(NSURLResponse *)response
 {
 	if (self.isCancelled) {
-		[self  markAsDone];
+		[self markAsDone];
 		return;
 	}
 	NSError *error;
@@ -73,42 +74,17 @@
 																														 options:NSJSONReadingMutableContainers
 																															 error:&error];
 	if (!error) {
-		NSArray *const results = (NSArray *)[dict objectForKey:@"results"];
-		[self generateViewModelsFromResults:results];
+		NSArray *parsedResults = [_dataParserClass parseFetchedResults:dict];
+		[self returnResultsAndMarkAsDone:parsedResults];
 	} else {
 		[self _handleDownloadError:error];
 	}
 }
 
-- (void)generateViewModelsFromResults:(NSArray *)results
-{
-	if (self.isCancelled) {
-		[self markAsDone];
-		return;
-	}
-	
-	__weak __typeof(self) weakSelf = self;
-	[results enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-		__strong __typeof(self) strongSelf = weakSelf;
-		if (!strongSelf) {
-			return;
-		}
-		NSDictionary *result = (NSDictionary *)obj;
-		if (![result isKindOfClass:[NSDictionary class]]) {
-			return;
-		}
-		[strongSelf->_results addObject:[[RGiTunesTableCellViewModel alloc] initWithName:result[@"trackName"]
-																																							author:result[@"artistName"]
-																																						imageURL:result[@"artworkUrl30"]]];
-	}];
-	
-	[self returnResultsAndMarkAsDone:_results];
-}
-
-- (void)returnResultsAndMarkAsDone:(NSArray<RGiTunesTableCellViewModel *> *)results
+- (void)returnResultsAndMarkAsDone:(NSArray *)results
 {
 	if (_callbackBlock) {
-		_callbackBlock(_results, self);
+		_callbackBlock(results);
 		[self markAsDone];
 	}
 }

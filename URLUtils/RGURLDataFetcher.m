@@ -7,7 +7,8 @@
 //
 
 #import "RGURLDataFetcher.h"
-#import "RGDataFetchOperation.h"
+#import "RGURLDataFetchOperation.h"
+#import "RGiTunesDataParser.h"
 
 @interface RGURLDataFetcher () <NSURLSessionDelegate>
 @end
@@ -16,7 +17,7 @@
 	NSURLSession *_urlSession;
 	
 	NSOperationQueue *_operationQueue;
-	RGDataFetchOperation *_currentOperation;
+	RGURLDataFetchOperation *_currentOperation;
 	
 	NSString *_currentQuery;
 }
@@ -53,18 +54,19 @@
 	[_operationQueue addOperation:_currentOperation];
 }
 
-- (RGDataFetchOperation *)_newOperationForCurrentQuery
+- (RGURLDataFetchOperation *)_newOperationForCurrentQuery
 {
 	__weak __typeof(self) weakSelf = self;
-	return [[RGDataFetchOperation alloc] initWithURLSession:_urlSession
-																							searchQuery:_currentQuery
-																						callbackBlock:^(NSArray<RGiTunesTableCellViewModel *> *results, RGDataFetchOperation *operation) {
-																							__strong __typeof(self) strongSelf = weakSelf;
-																							if (strongSelf) {
-																								[strongSelf->_delegate dataFetcherDidFinishWithResults:results
-																																															forQuery:strongSelf->_currentQuery];
-																							}
-																						}];
+	return [[RGURLDataFetchOperation alloc] initWithURLSession:_urlSession
+																								 searchQuery:_currentQuery
+																									dataParser:[RGiTunesDataParser class]
+																							 callbackBlock:^(NSArray *results) {
+																								 __strong __typeof(self) strongSelf = weakSelf;
+																								 if (strongSelf) {
+																									 [strongSelf->_delegate dataFetcherDidFinishWithResults:results
+																																																 forQuery:strongSelf->_currentQuery];
+																								 }
+																							 }];
 }
 
 # pragma mark - NSURLSessionDelegate methods

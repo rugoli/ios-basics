@@ -11,7 +11,6 @@
 #import "RGTableViewDataSource.h"
 #import "RGiTunesTableCellViewModel.h"
 #import "RGTableViewCell.h"
-#import "RGDataFetchOperation.h"
 #import "RGURLDataFetcher.h"
 
 @interface RGTableViewDataSource () <RGDataFetcherDelegate>

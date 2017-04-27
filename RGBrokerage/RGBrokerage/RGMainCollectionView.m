@@ -10,11 +10,10 @@
 
 @implementation RGMainCollectionView
 
-- (instancetype)initWithFrame:(CGRect)frame
-				 collectionViewLayout:(UICollectionViewLayout *)layout
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-	if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
-		self.backgroundColor = [UIColor redColor];
+	if (self = [super initWithCoder:aDecoder]) {
+		self.collectionViewLayout = [[UICollectionViewLayout alloc] init];
 	}
 	return self;
 }

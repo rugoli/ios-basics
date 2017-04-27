@@ -18,8 +18,6 @@
 	NSString *_searchQuery;
 	RGDataFetchCallback _callbackBlock;
 	Class<RGDataFetchParser> _dataParserClass;
-	
-	NSMutableArray<RGiTunesTableCellViewModel *> *_results;
 }
 
 - (instancetype)initWithURLSession:(NSURLSession *)session

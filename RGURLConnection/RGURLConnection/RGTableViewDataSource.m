@@ -33,7 +33,7 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 {
 	if (self = [super init]) {
-		_dataFetcher = [[RGURLDataFetcher alloc] init];
+		_dataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"iTunes data fetcher"];
 		_dataFetcher.delegate = self;
 
 		_results = [NSMutableArray new];

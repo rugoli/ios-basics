@@ -17,6 +17,8 @@
 
 @interface RGURLDataFetcher : NSObject
 
+- (instancetype)initWithQueueName:(NSString *)queueName;
+
 - (void)executeQuery:(NSString *)query;
 
 @property (nonatomic, readwrite, weak) id<RGDataFetcherDelegate> delegate;

@@ -16,8 +16,6 @@
 
 @end
 
-@class RGiTunesTableCellViewModel;
-
 @interface RGURLDataFetchOperation : RGCustomNSOperation
 
 typedef void (^RGDataFetchCallback)(NSArray *results);

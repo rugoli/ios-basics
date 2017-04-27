@@ -24,13 +24,18 @@
 
 - (instancetype)init
 {
+	return [self initWithQueueName:@"data fetcher"];
+}
+
+- (instancetype)initWithQueueName:(NSString *)queueName
+{
 	if (self = [super init]) {
 		_urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
 																								delegate:self
 																					 delegateQueue:[NSOperationQueue mainQueue]];
 		
 		_operationQueue = [NSOperationQueue new];
-		_operationQueue.name = @"RG itunes data fetching";
+		_operationQueue.name = [queueName copy];
 		_operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
 	}
 	return self;

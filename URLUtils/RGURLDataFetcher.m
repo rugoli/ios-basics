@@ -8,7 +8,6 @@
 
 #import "RGURLDataFetcher.h"
 #import "RGURLDataFetchOperation.h"
-#import "RGiTunesDataParser.h"
 
 @interface RGURLDataFetcher () <NSURLSessionDelegate>
 @end
@@ -19,15 +18,13 @@
 	NSOperationQueue *_operationQueue;
 	RGURLDataFetchOperation *_currentOperation;
 	
+	Class<RGDataFetchParser> _dataParserClass;
+	
 	NSString *_currentQuery;
 }
 
-- (instancetype)init
-{
-	return [self initWithQueueName:@"data fetcher"];
-}
-
 - (instancetype)initWithQueueName:(NSString *)queueName
+											 dataParser:(Class<RGDataFetchParser>)dataParser
 {
 	if (self = [super init]) {
 		_urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
@@ -37,6 +34,8 @@
 		_operationQueue = [NSOperationQueue new];
 		_operationQueue.name = [queueName copy];
 		_operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
+		
+		_dataParserClass = dataParser;
 	}
 	return self;
 }
@@ -64,7 +63,7 @@
 	__weak __typeof(self) weakSelf = self;
 	return [[RGURLDataFetchOperation alloc] initWithURLSession:_urlSession
 																								 searchQuery:_currentQuery
-																									dataParser:[RGiTunesDataParser class]
+																									dataParser:_dataParserClass
 																							 callbackBlock:^(NSArray *results) {
 																								 __strong __typeof(self) strongSelf = weakSelf;
 																								 if (strongSelf) {

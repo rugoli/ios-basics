@@ -8,8 +8,6 @@
 
 #import "RGURLDataFetchOperation.h"
 
-#import "RGiTunesTableCellViewModel.h"
-
 @interface RGURLDataFetchOperation () <RGCustomNSOperation>
 @end
 

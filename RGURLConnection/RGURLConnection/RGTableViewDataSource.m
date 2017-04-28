@@ -12,6 +12,7 @@
 #import "RGiTunesTableCellViewModel.h"
 #import "RGTableViewCell.h"
 #import "RGURLDataFetcher.h"
+#import "RGiTunesDataParser.h"
 
 @interface RGTableViewDataSource () <RGDataFetcherDelegate>
 
@@ -33,7 +34,8 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 {
 	if (self = [super init]) {
-		_dataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"iTunes data fetcher"];
+		_dataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"iTunes data fetcher"
+																										dataParser:[RGiTunesDataParser class]];
 		_dataFetcher.delegate = self;
 
 		_results = [NSMutableArray new];

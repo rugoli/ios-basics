@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RGDataFetchParser;
+
 @protocol RGDataFetcherDelegate
 
 - (void)dataFetcherDidFinishWithResults:(NSArray<id> *)results
@@ -17,7 +19,8 @@
 
 @interface RGURLDataFetcher : NSObject
 
-- (instancetype)initWithQueueName:(NSString *)queueName;
+- (instancetype)initWithQueueName:(NSString *)queueName
+											 dataParser:(Class<RGDataFetchParser>)dataParser;
 
 - (void)executeQuery:(NSString *)query;
 

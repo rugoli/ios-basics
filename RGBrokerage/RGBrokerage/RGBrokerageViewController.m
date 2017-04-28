@@ -11,6 +11,7 @@
 #import "RGMainCollectionView.h"
 #import "RGBrokerageSearchBar.h"
 #import "RGURLDataFetcher.h"
+#import "RGBrokerageYahooFinanceDataParser.h"
 
 @interface RGBrokerageViewController () <UISearchBarDelegate>
 @end
@@ -24,7 +25,8 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if (self = [super initWithCoder:aDecoder]) {
-		_dataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"stocks fetcher"];
+		_dataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"stocks fetcher"
+																										dataParser:[RGBrokerageYahooFinanceDataParser class]];
 	}
 	return self;
 }

@@ -12,7 +12,7 @@
 
 @protocol RGDataFetchParser
 
-+ (NSArray<id> *)parseFetchedResults:(NSDictionary *)data;
++ (NSArray *)parseFetchedResults:(NSDictionary *)data;
 
 @end
 

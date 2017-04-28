@@ -43,7 +43,7 @@
 	__weak __typeof(self) weakSelf = self;
 	NSURLSessionDataTask *downloadTask = [_urlSession dataTaskWithURL:[NSURL URLWithString:_searchQuery]
 																									completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-																										if (error) {
+																										if (error || data == nil) {
 																											[weakSelf _handleDownloadError:error];
 																										}
 																										[weakSelf handleDownloadWithData:data

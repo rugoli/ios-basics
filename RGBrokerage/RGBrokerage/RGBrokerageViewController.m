@@ -45,12 +45,12 @@
 
 static NSString *sqlQueryForSearchTerm(NSString *searchTerm)
 {
-	return [[NSString stringWithFormat:@"select * from yahoo.finance.quotes where symbol = '%@'", searchTerm] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+	return [NSString stringWithFormat:@"select * from yahoo.finance.quotes where symbol IN ('%@')", searchTerm];
 }
 
 static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 {
-	return [NSString stringWithFormat:@"https://query.yahooapis.com/v1/public/yql?q=%@&format=json", sqlQueryForSearchTerm(searchTerm)];
+	return [[NSString stringWithFormat:@"https://query.yahooapis.com/v1/public/yql?q=%@&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys", sqlQueryForSearchTerm(searchTerm)] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
 }
 
 @end

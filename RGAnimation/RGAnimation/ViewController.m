@@ -15,9 +15,14 @@
 
 static const CGFloat kMaxAnimatableY = 350;
 
+@interface ViewController () <CAAnimationDelegate>
+@end
+
 @implementation ViewController {
-	CGRect _originalFrame;
+	CGPoint _originalSquarePosition;
 	NSArray<RGCornerViewModel *> *_cornerPoints;
+	
+	CABasicAnimation *_currentAnimation;
 }
 
 - (void)viewDidLoad
@@ -26,7 +31,7 @@ static const CGFloat kMaxAnimatableY = 350;
 	[_animateButton setTitle:@"Animate" forState:UIControlStateNormal];
 	[_animateButton setTitle:@"Stop animating" forState:UIControlStateSelected];
 
-	_originalFrame = _squareView.frame;
+	_originalSquarePosition = _squareView.layer.position;
 	
 	CGSize viewSize = self.view.bounds.size;
 	_cornerPoints = @[[[RGCornerViewModel alloc] initWithPoint:CGPointMake(0, 0) xyOffset:CGPointMake(1, 1)], // top-left
@@ -40,47 +45,28 @@ static const CGFloat kMaxAnimatableY = 350;
 	if (button.isSelected) {
 		[self _animateReset];
 	} else {
-		[self _animateSquareInRandomDirection];
+		[self _animateToPoint:[self _getRandomCornerWithinBounds]];
 	}
 	[button setSelected:!button.isSelected];
-}
-
-- (void)_turnOffAnimationAndResetPosition
-{
-	_squareView.frame = _originalFrame;
-	[_animateButton setSelected:NO];
 }
 
 - (void)_animateReset
 {
 	[_squareView.layer removeAllAnimations];
-//	[self _animateToPoint:_originalFrame.origin
-//						 completion:nil];
-}
-
-- (void)_animateSquareInRandomDirection
-{
-	__weak __typeof(self) weakSelf = self;
-	[self _animateToPoint:[self _getRandomCornerWithinBounds]
-						 completion:^(BOOL finished) {
-							 [weakSelf _turnOffAnimationAndResetPosition];
-						 }];
+	[self _animateToPoint:_originalSquarePosition];
+	[_animateButton setSelected:NO];
 }
 
 - (void)_animateToPoint:(CGPoint)point
-						 completion:(void (^ __nullable)(BOOL finished))completion
 {
-	__weak __typeof(self) weakSelf = self;
-	[UIView animateWithDuration:3
-												delay:0
-											options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews
-									 animations:^{
-										 __strong __typeof(self) strongSelf = weakSelf;
-										 if (strongSelf) {
-											 strongSelf->_squareView.center = point;
-										 }
-									 }
-									 completion:completion];
+	_currentAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+	[_currentAnimation setFromValue:[NSValue valueWithCGPoint:_squareView.layer.position]];
+	[_currentAnimation setToValue:[NSValue valueWithCGPoint:point]];
+	[_currentAnimation setDuration:3];
+	_currentAnimation.delegate = self;
+	
+	[_squareView.layer setPosition:point];
+	[_squareView.layer addAnimation:_currentAnimation forKey:@"position"];
 }
 
 - (CGPoint)_getRandomCornerWithinBounds
@@ -89,6 +75,16 @@ static const CGFloat kMaxAnimatableY = 350;
 	CGPoint basePoint = randomCorner.point;
 	return CGPointMake(basePoint.x + randomCorner.xyOffset.x * _squareView.dimension.floatValue / 2.0,
 										 basePoint.y + randomCorner.xyOffset.y * _squareView.dimension.floatValue / 2.0);
+}
+
+# pragma mark - CAAnimationDelegate methods
+
+- (void)animationDidStop:(CAAnimation *)anim
+								finished:(BOOL)flag
+{
+	if ([_animateButton isSelected]) {
+		[self _animateReset];
+	}
 }
 
 @end

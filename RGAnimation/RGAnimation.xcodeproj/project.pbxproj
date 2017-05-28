@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012E77B31EDB870B007FC760 /* RGAnimationWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 012E77B21EDB870A007FC760 /* RGAnimationWrapper.m */; };
 		01C437761EA422460049D6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C437751EA422460049D6AF /* main.m */; };
 		01C437791EA422460049D6AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C437781EA422460049D6AF /* AppDelegate.m */; };
 		01C4377C1EA422460049D6AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C4377B1EA422460049D6AF /* ViewController.m */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		012E77B11EDB870A007FC760 /* RGAnimationWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGAnimationWrapper.h; sourceTree = "<group>"; };
+		012E77B21EDB870A007FC760 /* RGAnimationWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGAnimationWrapper.m; sourceTree = "<group>"; };
 		01C437711EA422460049D6AF /* RGAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C437751EA422460049D6AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01C437771EA422460049D6AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -71,6 +74,8 @@
 				01C437781EA422460049D6AF /* AppDelegate.m */,
 				01C4377A1EA422460049D6AF /* ViewController.h */,
 				01C4377B1EA422460049D6AF /* ViewController.m */,
+				012E77B11EDB870A007FC760 /* RGAnimationWrapper.h */,
+				012E77B21EDB870A007FC760 /* RGAnimationWrapper.m */,
 				01C437921EA444E20049D6AF /* RGCornerViewModel.h */,
 				01C437931EA444E20049D6AF /* RGCornerViewModel.m */,
 				01C4377D1EA422460049D6AF /* Main.storyboard */,
@@ -180,6 +185,7 @@
 				01C437761EA422460049D6AF /* main.m in Sources */,
 				01C437941EA444E20049D6AF /* RGCornerViewModel.m in Sources */,
 				01C4378D1EA422FF0049D6AF /* RGAnimatableSquare.m in Sources */,
+				012E77B31EDB870B007FC760 /* RGAnimationWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +344,7 @@
 				01C4378A1EA422460049D6AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

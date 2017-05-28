@@ -12,10 +12,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "RGAnimateButton.h"
 #import "RGCornerViewModel.h"
+#import "RGAnimationWrapper.h"
 
 static const CGFloat kMaxAnimatableY = 350;
 
 @interface ViewController () <CAAnimationDelegate>
+
+@property (atomic, readwrite, assign) BOOL isReversing;
+
 @end
 
 @implementation ViewController {
@@ -42,10 +46,13 @@ static const CGFloat kMaxAnimatableY = 350;
 
 - (IBAction)tappedAnimateButton:(RGAnimateButton *)button
 {
+	[_squareView.layer setPosition:_squareView.layer.presentationLayer.position];
+	[_squareView.layer removeAllAnimations];
 	if (button.isSelected) {
 		[self _animateReset];
 	} else {
 		[self _animateToPoint:[self _getRandomCornerWithinBounds]];
+		_isReversing = NO;
 	}
 	[button setSelected:!button.isSelected];
 }
@@ -54,12 +61,12 @@ static const CGFloat kMaxAnimatableY = 350;
 {
 	[_squareView.layer removeAllAnimations];
 	[self _animateToPoint:_originalSquarePosition];
-	[_animateButton setSelected:NO];
+	_isReversing = YES;
 }
 
 - (void)_animateToPoint:(CGPoint)point
 {
-	_currentAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+	_currentAnimation	= [CABasicAnimation animationWithKeyPath:@"position"];
 	[_currentAnimation setFromValue:[NSValue valueWithCGPoint:_squareView.layer.position]];
 	[_currentAnimation setToValue:[NSValue valueWithCGPoint:point]];
 	[_currentAnimation setDuration:3];
@@ -82,7 +89,11 @@ static const CGFloat kMaxAnimatableY = 350;
 - (void)animationDidStop:(CAAnimation *)anim
 								finished:(BOOL)flag
 {
-	if ([_animateButton isSelected]) {
+	if (!flag) {
+		return;
+	} else if (_isReversing) {
+		[self.animateButton setSelected:NO];
+	} else {
 		[self _animateReset];
 	}
 }

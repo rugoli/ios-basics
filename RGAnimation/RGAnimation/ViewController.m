@@ -13,10 +13,11 @@
 #import "RGAnimateButton.h"
 #import "RGCornerViewModel.h"
 #import "RGAnimationWrapper.h"
+#import "RGAnimatableSquare.h"
 
 static const CGFloat kMaxAnimatableY = 350;
 
-@interface ViewController () <CAAnimationDelegate>
+@interface ViewController () <CAAnimationDelegate, UIGestureRecognizerDelegate>
 
 @property (atomic, readwrite, assign) BOOL isReversing;
 
@@ -42,6 +43,12 @@ static const CGFloat kMaxAnimatableY = 350;
 										[[RGCornerViewModel alloc] initWithPoint:CGPointMake(0, kMaxAnimatableY) xyOffset:CGPointMake(1, -1)], // bottom-left
 										[[RGCornerViewModel alloc] initWithPoint:CGPointMake(viewSize.width, 0) xyOffset:CGPointMake(-1, 1)], // top-right
 										[[RGCornerViewModel alloc] initWithPoint:CGPointMake(viewSize.width, kMaxAnimatableY) xyOffset:CGPointMake(-1, -1)]]; // bottom-right
+	
+	UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+																																																	action:@selector(didTapSquare:)];
+	gestureRecognizer.minimumPressDuration = 0.10;
+	gestureRecognizer.delegate = self;
+	[self.view addGestureRecognizer:gestureRecognizer];
 }
 
 - (IBAction)tappedAnimateButton:(RGAnimateButton *)button
@@ -96,6 +103,31 @@ static const CGFloat kMaxAnimatableY = 350;
 	} else {
 		[self _animateReset];
 	}
+}
+
+# pragma mark - Tap gesture action
+
+- (void)didTapSquare:(UIGestureRecognizer *)gestureRecognizer
+{
+	if ([_squareView.layer.animationKeys count] > 0 && gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+		[_squareView.layer setPosition:_squareView.layer.presentationLayer.position];
+		[_squareView.layer removeAllAnimations];
+	} else if (!CGPointEqualToPoint(_squareView.layer.presentationLayer.position, _originalSquarePosition)
+						 && gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+		[self _animateToPoint:[_currentAnimation.toValue CGPointValue]];
+	}
+}
+
+# pragma mark - UIGestureRecognizerDelegate methods
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+			 shouldReceiveTouch:(UITouch *)touch
+{
+	CALayer *touchedLayer = [_squareView.layer.presentationLayer hitTest:[touch locationInView:self.view]];
+	if (touchedLayer != nil) {
+		return YES;
+	}
+	return NO;
 }
 
 @end

@@ -76,7 +76,8 @@ static const CGFloat kMaxAnimatableY = 350;
 	_currentAnimation	= [CABasicAnimation animationWithKeyPath:@"position"];
 	[_currentAnimation setFromValue:[NSValue valueWithCGPoint:_squareView.layer.position]];
 	[_currentAnimation setToValue:[NSValue valueWithCGPoint:point]];
-	[_currentAnimation setDuration:3];
+	[_currentAnimation setDuration:[self _getDurationForStartingPoint:_squareView.layer.position
+																												endingPoint:point]];
 	_currentAnimation.delegate = self;
 	
 	[_squareView.layer setPosition:point];
@@ -89,6 +90,19 @@ static const CGFloat kMaxAnimatableY = 350;
 	CGPoint basePoint = randomCorner.point;
 	return CGPointMake(basePoint.x + randomCorner.xyOffset.x * _squareView.dimension.floatValue / 2.0,
 										 basePoint.y + randomCorner.xyOffset.y * _squareView.dimension.floatValue / 2.0);
+}
+
+- (CFTimeInterval)_getDurationForStartingPoint:(CGPoint)startingPoint
+																	 endingPoint:(CGPoint)endingPoint
+{
+	CGFloat maxDifference = distanceBetweenPoints(_originalSquarePosition, CGPointMake(0, 0));
+	CGFloat currentDifference = distanceBetweenPoints(startingPoint, endingPoint);
+	return 3.0 * (currentDifference / maxDifference);
+}
+
+static CGFloat distanceBetweenPoints(CGPoint pt1, CGPoint pt2)
+{
+	return sqrtf(powf((pt1.x - pt2.x), 2.0) + pow((pt1.y - pt2.y), 2.0));
 }
 
 # pragma mark - CAAnimationDelegate methods

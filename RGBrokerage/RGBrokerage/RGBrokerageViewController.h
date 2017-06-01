@@ -13,6 +13,7 @@
 @interface RGBrokerageViewController : UIViewController
 
 @property (nonatomic, readwrite, weak) IBOutlet RGBrokerageSearchBar *searchBar;
+@property (nonatomic, readwrite, weak) IBOutlet UIView *searchResultsCell;
 
 @end
 

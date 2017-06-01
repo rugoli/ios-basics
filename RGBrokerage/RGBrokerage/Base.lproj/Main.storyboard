@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -33,6 +33,29 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="Kjn-pl-OyG"/>
                                         </connections>
                                     </searchBar>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uoF-sQ-cMq" customClass="RGStockSearchResultCell">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="54"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYQ-Bu-qIJ">
+                                                <rect key="frame" x="15" y="8" width="42" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Jd-ai-qfR">
+                                                <rect key="frame" x="15" y="25" width="42" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="HYQ-Bu-qIJ" firstAttribute="top" secondItem="uoF-sQ-cMq" secondAttribute="top" constant="8" id="KME-lW-SvN"/>
+                                            <constraint firstItem="HYQ-Bu-qIJ" firstAttribute="leading" secondItem="uoF-sQ-cMq" secondAttribute="leading" constant="16" id="SWc-xh-cnP"/>
+                                            <constraint firstItem="4Jd-ai-qfR" firstAttribute="top" secondItem="HYQ-Bu-qIJ" secondAttribute="bottom" constant="-4" id="VJR-yB-vYD"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -46,6 +69,7 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="P5H-k3-EnK" id="7Cc-hk-5Sq"/>
+                        <outlet property="searchResultsCell" destination="uoF-sQ-cMq" id="1OR-vy-Wl6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

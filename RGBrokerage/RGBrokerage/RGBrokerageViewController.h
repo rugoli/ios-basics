@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class RGBrokerageSearchBar;
+@class RGStockSearchResultCell;
 
 @interface RGBrokerageViewController : UIViewController
 
 @property (nonatomic, readwrite, weak) IBOutlet RGBrokerageSearchBar *searchBar;
-@property (nonatomic, readwrite, weak) IBOutlet UIView *searchResultsCell;
+@property (nonatomic, readwrite, weak) IBOutlet RGStockSearchResultCell *searchResultsCell;
 
 @end
 

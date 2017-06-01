@@ -13,6 +13,7 @@
 #import "RGURLDataFetcher.h"
 #import "RGBrokerageYahooFinanceDataParser.h"
 #import "RGStockSearchModel.h"
+#import "RGStockSearchResultCell.h"
 
 @interface RGBrokerageViewController () <UISearchBarDelegate, RGDataFetcherDelegate>
 @end
@@ -42,7 +43,24 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-	[_dataFetcher executeQuery:apiQueryForSearchTerm(searchText)];
+	if (searchText.length > 0) {
+		[_dataFetcher executeQuery:apiQueryForSearchTerm(searchText)];
+	} else {
+		[self _configureResultCellWithStockModel:nil];
+	}
+	
+}
+
+- (void)_configureResultCellWithStockModel:(RGStockSearchModel *)stockModel
+{
+	if (stockModel == nil) {
+		_searchResultsCell.hidden = YES;
+		return;
+	}
+	
+	[_searchResultsCell.companyName setText:stockModel.name];
+	[_searchResultsCell.stockSymbol setText:stockModel.stockSymbol];
+	_searchResultsCell.hidden = NO;
 }
 
 static NSString *sqlQueryForSearchTerm(NSString *searchTerm)
@@ -62,7 +80,12 @@ static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 - (void)dataFetcherDidFinishWithResults:(NSArray<id> *)results
 															 forQuery:(NSString *)query
 {
+	if (results.count == 0 || ![[results objectAtIndex:0] isKindOfClass:[RGStockSearchModel class]]) {
+		[self _configureResultCellWithStockModel:nil];
+		return;
+	}
 	
+	[self _configureResultCellWithStockModel:(RGStockSearchModel *)[results objectAtIndex:0]];
 }
 
 @end

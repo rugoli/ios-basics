@@ -10,9 +10,9 @@
 
 @interface RGStockSearchResultCell : UIView
 
-@property (nonatomic, readwrite, strong) IBInspectable UILabel *companyName;
-@property (nonatomic, readwrite, strong) IBInspectable UILabel *stockSymbol;
-@property (nonatomic, readwrite, strong) IBInspectable UILabel *stockPrice;
-@property (nonatomic, readwrite, strong) IBInspectable UILabel *changeInPercent;
+@property (nonatomic, readwrite, strong) IBOutlet UILabel *companyName;
+@property (nonatomic, readwrite, strong) IBOutlet UILabel *stockSymbol;
+@property (nonatomic, readwrite, strong) IBOutlet UILabel *stockPrice;
+@property (nonatomic, readwrite, strong) IBOutlet UILabel *changeInPercent;
 
 @end

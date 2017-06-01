@@ -10,10 +10,13 @@
 
 @interface RGStockSearchModel : NSObject
 
-- (instancetype)initWithSymbol:(NSString *)stockSymbol
-								lastTradePrice:(NSString *)lastTradePrice;
+- (instancetype)initWithStockResults:(NSDictionary *)stockResults;
 
 @property (nonatomic, readonly, copy) NSString *stockSymbol;
 @property (nonatomic, readonly, strong) NSNumber *price;
+@property (nonatomic, readonly, copy) NSString *changeInPercent;
+@property (nonatomic, readonly, copy) NSString *name;
+
+extern NSArray<NSString *> *StockModelDesiredFields(void);
 
 @end

@@ -16,7 +16,10 @@
 {
 	NSDictionary *const results = [(NSDictionary *)[(NSDictionary *)[data objectForKey:@"query"] objectForKey:@"results"] objectForKey:@"quote"];
 	
-	return @[[[RGStockSearchModel alloc] initWithStockResults:results]];
+	RGStockSearchModel *const stockModel = [[RGStockSearchModel alloc] initWithStockResults:results];
+	return stockModel != nil
+		? @[stockModel]
+		: [NSArray new];
 }
 
 @end

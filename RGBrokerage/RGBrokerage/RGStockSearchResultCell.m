@@ -9,4 +9,13 @@
 #import "RGStockSearchResultCell.h"
 
 @implementation RGStockSearchResultCell
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+	if (self = [super initWithCoder:aDecoder]) {
+		self.hidden = YES;
+	}
+	return self;
+}
+
 @end

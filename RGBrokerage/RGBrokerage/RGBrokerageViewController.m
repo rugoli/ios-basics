@@ -57,7 +57,6 @@
 		_searchResultsCell.hidden = YES;
 		return;
 	}
-	
 	[_searchResultsCell.companyName setText:stockModel.name];
 	[_searchResultsCell.stockSymbol setText:stockModel.stockSymbol];
 	_searchResultsCell.hidden = NO;

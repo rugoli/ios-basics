@@ -1,5 +1,0 @@
-[paths]
-default = git+ssh://git@github.com:rugoli/ios-basics.git
-
-alias sl='hg slog'
-alias st='hg st'

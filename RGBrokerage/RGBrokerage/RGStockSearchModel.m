@@ -17,7 +17,8 @@ static NSString	*const kCompanyNameField = @"Name";
 
 - (instancetype)initWithStockResults:(NSDictionary *)stockResults
 {
-	if ([stockResults[kCompanyNameField] isEqual:[NSNull null]]) {
+	if ([stockResults[kCompanyNameField] isEqual:[NSNull null]] ||
+			[stockResults[kLastTradePriceField] isEqual:[NSNull null]]) {
 		return nil;
 	}
 

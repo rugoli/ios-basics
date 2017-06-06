@@ -43,8 +43,10 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-	if (searchText.length > 0) {
-		[_dataFetcher executeQuery:apiQueryForSearchTerm(searchText)];
+	NSString *const uppercaseSearch = searchText.uppercaseString;
+	searchBar.text = [uppercaseSearch copy];
+	if (uppercaseSearch.length > 0) {
+		[_dataFetcher executeQuery:apiQueryForSearchTerm(uppercaseSearch)];
 	} else {
 		[self _configureResultCellWithStockModel:nil];
 	}
@@ -59,6 +61,8 @@
 	}
 	[_searchResultsCell.companyName setText:stockModel.name];
 	[_searchResultsCell.stockSymbol setText:stockModel.stockSymbol];
+	[_searchResultsCell.stockPrice setText:[NSString stringWithFormat:@"%@", stockModel.price]];
+	[_searchResultsCell.changeInPercent setText:stockModel.changeInPercent];
 	_searchResultsCell.hidden = NO;
 }
 

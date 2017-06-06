@@ -50,17 +50,36 @@
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfW-5E-kkp">
+                                        <rect key="frame" x="311" y="8" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtY-Rh-7sJ">
+                                        <rect key="frame" x="320" y="32" width="33" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="4Jd-ai-qfR" firstAttribute="leading" secondItem="uoF-sQ-cMq" secondAttribute="leading" constant="15" id="0x5-Bu-hHu"/>
+                                    <constraint firstItem="EtY-Rh-7sJ" firstAttribute="top" secondItem="tfW-5E-kkp" secondAttribute="bottom" constant="3" id="5Hp-yg-XMV"/>
                                     <constraint firstItem="4Jd-ai-qfR" firstAttribute="leading" secondItem="HYQ-Bu-qIJ" secondAttribute="leading" id="EgA-We-xrt"/>
                                     <constraint firstItem="HYQ-Bu-qIJ" firstAttribute="top" secondItem="uoF-sQ-cMq" secondAttribute="top" constant="8" id="KME-lW-SvN"/>
+                                    <constraint firstAttribute="trailing" secondItem="tfW-5E-kkp" secondAttribute="trailing" constant="22" id="OAh-xH-JmC"/>
+                                    <constraint firstItem="tfW-5E-kkp" firstAttribute="centerY" secondItem="HYQ-Bu-qIJ" secondAttribute="centerY" id="SzA-8z-dyF"/>
                                     <constraint firstItem="4Jd-ai-qfR" firstAttribute="top" secondItem="HYQ-Bu-qIJ" secondAttribute="bottom" constant="3" id="VJR-yB-vYD"/>
+                                    <constraint firstItem="EtY-Rh-7sJ" firstAttribute="centerY" secondItem="4Jd-ai-qfR" secondAttribute="centerY" id="XLn-b2-yiF"/>
                                     <constraint firstItem="HYQ-Bu-qIJ" firstAttribute="leading" secondItem="uoF-sQ-cMq" secondAttribute="leading" constant="15" id="hOs-wl-mIz"/>
+                                    <constraint firstItem="tfW-5E-kkp" firstAttribute="trailing" secondItem="EtY-Rh-7sJ" secondAttribute="trailing" id="uLu-r9-zTa"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="changeInPercent" destination="EtY-Rh-7sJ" id="yS8-1W-VJs"/>
                                     <outlet property="companyName" destination="HYQ-Bu-qIJ" id="5Sd-pK-xL5"/>
+                                    <outlet property="stockPrice" destination="tfW-5E-kkp" id="TSN-C8-sEd"/>
                                     <outlet property="stockSymbol" destination="4Jd-ai-qfR" id="fEF-LA-wHo"/>
                                 </connections>
                             </view>

@@ -8,7 +8,11 @@
 
 #import "RGStockSearchResultCell.h"
 
-@implementation RGStockSearchResultCell
+#import "RGStockSearchModel.h"
+
+@implementation RGStockSearchResultCell {
+	RGStockSearchModel *_stockModel;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -29,9 +33,19 @@
 	_highlightOverlayView.hidden = !highlighted;
 }
 
+- (void)configureWithStockSearchModel:(RGStockSearchModel *)stockModel
+{
+	[_companyName setText:stockModel.name];
+	[_stockSymbol setText:stockModel.stockSymbol];
+	[_stockPrice setText:[NSString stringWithFormat:@"%@", stockModel.price]];
+	[_changeInPercent setText:stockModel.changeInPercent];
+	
+	_stockModel = stockModel;
+}
+
 - (void)didSelectCell
 {
-	NSLog(@"testing");
+	[_delegate didSelectSearchResultCell:self withModel:_stockModel];
 }
 
 @end

@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RGStockSearchResultCell : UIView
+@interface RGStockSearchResultCell : UIControl
 
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *companyName;
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *stockSymbol;
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *stockPrice;
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *changeInPercent;
+
+@property (nonatomic, readwrite, weak) IBOutlet UIView *highlightOverlayView;
 
 @end

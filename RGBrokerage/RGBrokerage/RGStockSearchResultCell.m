@@ -14,8 +14,24 @@
 {
 	if (self = [super initWithCoder:aDecoder]) {
 		self.hidden = YES;
+		
+		[self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectCell)]];
+		
+		_highlightOverlayView.hidden = YES;
 	}
 	return self;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+	[super setHighlighted:highlighted];
+	
+	_highlightOverlayView.hidden = !highlighted;
+}
+
+- (void)didSelectCell
+{
+	NSLog(@"testing");
 }
 
 @end

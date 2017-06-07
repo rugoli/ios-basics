@@ -13,15 +13,23 @@
 #import "RGURLDataFetcher.h"
 #import "RGBrokerageYahooFinanceDataParser.h"
 #import "RGStockSearchModel.h"
+#import "RGStockDetailViewController.h"
 #import "RGStockSearchResultCell.h"
 
-@interface RGBrokerageViewController () <UISearchBarDelegate, RGDataFetcherDelegate>
+@interface RGBrokerageViewController ()
+<
+	UISearchBarDelegate,
+	RGDataFetcherDelegate,
+	RGStockSearchResultCellDelegate
+>
 @end
 
 @implementation RGBrokerageViewController {
 	RGMainCollectionView *_mainView;
 	
 	RGURLDataFetcher *_dataFetcher;
+	
+	RGStockSearchModel *_selectedStock;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -59,10 +67,8 @@
 		_searchResultsCell.hidden = YES;
 		return;
 	}
-	[_searchResultsCell.companyName setText:stockModel.name];
-	[_searchResultsCell.stockSymbol setText:stockModel.stockSymbol];
-	[_searchResultsCell.stockPrice setText:[NSString stringWithFormat:@"%@", stockModel.price]];
-	[_searchResultsCell.changeInPercent setText:stockModel.changeInPercent];
+	
+	[_searchResultsCell configureWithStockSearchModel:stockModel];
 	_searchResultsCell.hidden = NO;
 }
 
@@ -89,6 +95,24 @@ static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 	}
 	
 	[self _configureResultCellWithStockModel:(RGStockSearchModel *)[results objectAtIndex:0]];
+}
+
+# pragma mark RGStockSearchResultCellDelegate methods
+
+- (void)didSelectSearchResultCell:(RGStockSearchResultCell *)cell
+												withModel:(RGStockSearchModel *)model
+{
+	_selectedStock = model;
+	[self performSegueWithIdentifier:@"SearchToDetail" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+								 sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"SearchToDetail"]) {
+		UINavigationController *navController = [segue destinationViewController];
+		[(RGStockDetailViewController *)navController.topViewController setStockModel:_selectedStock];
+	}
 }
 
 @end

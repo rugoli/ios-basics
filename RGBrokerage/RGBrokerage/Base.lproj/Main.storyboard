@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Brokerage View Controller-->
+        <!--Delegate-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="RGBrokerageViewController" sceneMemberID="viewController">
@@ -79,6 +79,7 @@
                                 <connections>
                                     <outlet property="changeInPercent" destination="EtY-Rh-7sJ" id="yS8-1W-VJs"/>
                                     <outlet property="companyName" destination="HYQ-Bu-qIJ" id="5Sd-pK-xL5"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="CTc-za-qAa"/>
                                     <outlet property="highlightOverlayView" destination="aLE-If-m7Y" id="fXs-zi-pLA"/>
                                     <outlet property="stockPrice" destination="tfW-5E-kkp" id="TSN-C8-sEd"/>
                                     <outlet property="stockSymbol" destination="4Jd-ai-qfR" id="fEF-LA-wHo"/>
@@ -108,11 +109,61 @@
                     <connections>
                         <outlet property="searchBar" destination="P5H-k3-EnK" id="7Cc-hk-5Sq"/>
                         <outlet property="searchResultsCell" destination="uoF-sQ-cMq" id="1OR-vy-Wl6"/>
+                        <segue destination="Q7L-3E-b83" kind="presentation" identifier="SearchToDetail" id="TG0-WZ-dgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Stock Detail View Controller-->
+        <scene sceneID="8Ma-6J-R4B">
+            <objects>
+                <viewController storyboardIdentifier="StockDetail" id="9L7-JR-LWy" customClass="RGStockDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="s13-nT-vLy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dtj-OR-yIQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hsr-fm-hR5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZDN-ij-hVz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0XQ-AE-PkH">
+                            <connections>
+                                <action selector="didTapCancel:" destination="9L7-JR-LWy" id="qiO-SJ-FWr"/>
+                            </connections>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="leftBarButtonItem" destination="0XQ-AE-PkH" id="8WR-n2-HSi"/>
+                        </connections>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="navigationItem" destination="ZDN-ij-hVz" id="hNN-fJ-V6F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Za-uw-yC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2216.8000000000002" y="-71.514242878560722"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b4q-Ni-Ir0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q7L-3E-b83" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bsk-9Z-BXt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9L7-JR-LWy" kind="relationship" relationship="rootViewController" id="rwY-2J-K7H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="syR-o6-l9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277.5999999999999" y="-71.514242878560722"/>
         </scene>
     </scenes>
 </document>

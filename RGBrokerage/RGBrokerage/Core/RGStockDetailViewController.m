@@ -55,8 +55,8 @@
 	 
 static NSString *sqlQueryForStockSymbol(NSString *stockSymbol)
 {
-	return [NSString stringWithFormat:@"select %@ from yahoo.finance.quotes where symbol IN ('%@')",
-				[[RGStockSearchModel stockModelDesiredFieldNames] componentsJoinedByString:@", "],
+	return [NSString stringWithFormat:@"select * from yahoo.finance.quotes where symbol IN ('%@')",
+//				[[RGStockSearchModel stockModelDesiredFieldNames] componentsJoinedByString:@", "],
 				stockSymbol];
 }
 

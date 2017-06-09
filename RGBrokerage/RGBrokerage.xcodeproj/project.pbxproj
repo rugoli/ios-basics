@@ -22,6 +22,7 @@
 		01D505D31EEA5A6F00C11982 /* RGStockDetailGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505CE1EEA5A6F00C11982 /* RGStockDetailGraphView.m */; };
 		01D505D41EEA5A6F00C11982 /* RGStockSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505D01EEA5A6F00C11982 /* RGStockSearchResultCell.m */; };
 		01D505D71EEA5AC300C11982 /* RGStockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505D61EEA5AC300C11982 /* RGStockModel.m */; };
+		01D505DA1EEA617E00C11982 /* RGStockDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505D91EEA617E00C11982 /* RGStockDetailModel.m */; };
 		01F1E4471EB1B811000F1A94 /* RGURLDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4441EB1B811000F1A94 /* RGURLDataFetcher.m */; };
 		01F1E4481EB1B811000F1A94 /* RGURLDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4461EB1B811000F1A94 /* RGURLDataFetchOperation.m */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,8 @@
 		01D505D01EEA5A6F00C11982 /* RGStockSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGStockSearchResultCell.m; path = Views/RGStockSearchResultCell.m; sourceTree = "<group>"; };
 		01D505D51EEA5AC300C11982 /* RGStockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGStockModel.h; path = Data/RGStockModel.h; sourceTree = "<group>"; };
 		01D505D61EEA5AC300C11982 /* RGStockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGStockModel.m; path = Data/RGStockModel.m; sourceTree = "<group>"; };
+		01D505D81EEA617E00C11982 /* RGStockDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGStockDetailModel.h; path = Data/RGStockDetailModel.h; sourceTree = "<group>"; };
+		01D505D91EEA617E00C11982 /* RGStockDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGStockDetailModel.m; path = Data/RGStockDetailModel.m; sourceTree = "<group>"; };
 		01F1E4431EB1B811000F1A94 /* RGURLDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetcher.h; path = ../../URLUtils/RGURLDataFetcher.h; sourceTree = "<group>"; };
 		01F1E4441EB1B811000F1A94 /* RGURLDataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetcher.m; path = ../../URLUtils/RGURLDataFetcher.m; sourceTree = "<group>"; };
 		01F1E4451EB1B811000F1A94 /* RGURLDataFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetchOperation.h; path = ../../URLUtils/RGURLDataFetchOperation.h; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 		01794A9C1EB8508F009090DE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				01D505D81EEA617E00C11982 /* RGStockDetailModel.h */,
+				01D505D91EEA617E00C11982 /* RGStockDetailModel.m */,
 				01D505D51EEA5AC300C11982 /* RGStockModel.h */,
 				01D505D61EEA5AC300C11982 /* RGStockModel.m */,
 				01D505C31EEA5A4B00C11982 /* RGStockSearchModel.h */,
@@ -246,6 +251,7 @@
 				010C784D1EA86D6300D4DF82 /* AppDelegate.m in Sources */,
 				01D505D21EEA5A6F00C11982 /* RGMainCollectionView.m in Sources */,
 				010C784A1EA86D6300D4DF82 /* main.m in Sources */,
+				01D505DA1EEA617E00C11982 /* RGStockDetailModel.m in Sources */,
 				01D505C21EEA5A3800C11982 /* RGStockDetailViewController.m in Sources */,
 				01794A981EB30623009090DE /* RGCustomNSOperation.m in Sources */,
 				01F1E4481EB1B811000F1A94 /* RGURLDataFetchOperation.m in Sources */,

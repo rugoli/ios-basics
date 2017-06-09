@@ -51,4 +51,9 @@ static NSString	*const kCompanyNameField = @"Name";
 	return @[kStockSymbolField, kLastTradePriceField, kChangeinPercentField, kCompanyNameField];
 }
 
++ (NSArray<NSString *> *)requiredFieldNames
+{
+	return @[kLastTradePriceField, kCompanyNameField];
+}
+
 @end

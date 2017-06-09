@@ -8,21 +8,18 @@
 
 #import "RGStockModel.h"
 
-static NSString *const kStockSymbolField = @"Symbol";
-static NSString *const kLastTradePriceField = @"LastTradePriceOnly";
-static NSString *const kChangeinPercentField = @"ChangeinPercent";
-static NSString	*const kCompanyNameField = @"Name";
-
 @implementation RGStockModel
 
 - (instancetype)initWithStockResults:(NSDictionary *)stockResults
 {
-	if ([stockResults[kCompanyNameField] isEqual:[NSNull null]] ||
-			[stockResults[kLastTradePriceField] isEqual:[NSNull null]]) {
-		return nil;
-	}
-
-	return [self initWithSanitizedResults:stockResults];
+	__block BOOL missingRequiredField = NO;
+	[[[self class] requiredFieldNames] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ([stockResults[obj] isEqual:[NSNull null]]) {
+			*stop = YES;
+			missingRequiredField = YES;
+		}
+	}];
+	return missingRequiredField ? nil : [self initWithSanitizedResults:stockResults];
 }
 
 - (instancetype)initWithSanitizedResults:(NSDictionary *)sanitizedResults
@@ -50,6 +47,12 @@ static NSString	*const kCompanyNameField = @"Name";
 {
 	NSLog(@"Must be defined by children");
 	return nil;
+}
+
++ (NSArray<NSString *> *)requiredFieldNames
+{
+	NSLog(@"Must be defined by children");
+	return @[];
 }
 
 

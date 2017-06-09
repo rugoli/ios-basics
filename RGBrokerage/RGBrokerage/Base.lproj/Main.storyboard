@@ -127,6 +127,13 @@
                     <view key="view" contentMode="scaleToFill" id="Hsr-fm-hR5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="RGStockDetailGraphView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZDN-ij-hVz">
@@ -140,6 +147,7 @@
                         </connections>
                     </navigationItem>
                     <connections>
+                        <outlet property="graphView" destination="ntv-1g-5GZ" id="zqt-5O-GR0"/>
                         <outlet property="navigationItem" destination="ZDN-ij-hVz" id="hNN-fJ-V6F"/>
                     </connections>
                 </viewController>

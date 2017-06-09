@@ -111,7 +111,9 @@ static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 {
 	if ([segue.identifier isEqualToString:@"SearchToDetail"]) {
 		UINavigationController *navController = [segue destinationViewController];
-		[(RGStockDetailViewController *)navController.topViewController setStockModel:_selectedStock];
+
+		RGStockDetailViewController *stockDetailVC = (RGStockDetailViewController *)navController.topViewController;
+		[stockDetailVC setStockModel:_selectedStock];
 	}
 }
 

@@ -19,6 +19,7 @@
 		01794A9B1EB30715009090DE /* RGBrokerageYahooFinanceDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 01794A9A1EB30715009090DE /* RGBrokerageYahooFinanceDataParser.m */; };
 		01794A9F1EB850AD009090DE /* RGStockSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01794A9E1EB850AD009090DE /* RGStockSearchModel.m */; };
 		01D505B91EE7C0B100C11982 /* RGStockDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505B81EE7C0B100C11982 /* RGStockDetailViewController.m */; };
+		01D505BC1EEA53B500C11982 /* RGStockDetailGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505BB1EEA53B500C11982 /* RGStockDetailGraphView.m */; };
 		01F1E4411EB1A6F3000F1A94 /* RGBrokerageSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4401EB1A6F3000F1A94 /* RGBrokerageSearchBar.m */; };
 		01F1E4471EB1B811000F1A94 /* RGURLDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4441EB1B811000F1A94 /* RGURLDataFetcher.m */; };
 		01F1E4481EB1B811000F1A94 /* RGURLDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4461EB1B811000F1A94 /* RGURLDataFetchOperation.m */; };
@@ -47,6 +48,8 @@
 		01794A9E1EB850AD009090DE /* RGStockSearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGStockSearchModel.m; sourceTree = "<group>"; };
 		01D505B71EE7C0B100C11982 /* RGStockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGStockDetailViewController.h; sourceTree = "<group>"; };
 		01D505B81EE7C0B100C11982 /* RGStockDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGStockDetailViewController.m; sourceTree = "<group>"; };
+		01D505BA1EEA53B500C11982 /* RGStockDetailGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGStockDetailGraphView.h; sourceTree = "<group>"; };
+		01D505BB1EEA53B500C11982 /* RGStockDetailGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGStockDetailGraphView.m; sourceTree = "<group>"; };
 		01F1E43F1EB1A6F3000F1A94 /* RGBrokerageSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGBrokerageSearchBar.h; sourceTree = "<group>"; };
 		01F1E4401EB1A6F3000F1A94 /* RGBrokerageSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGBrokerageSearchBar.m; sourceTree = "<group>"; };
 		01F1E4431EB1B811000F1A94 /* RGURLDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetcher.h; path = ../../URLUtils/RGURLDataFetcher.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				01F1E4401EB1A6F3000F1A94 /* RGBrokerageSearchBar.m */,
 				010C785F1EA86DEB00D4DF82 /* RGMainCollectionView.h */,
 				010C78601EA86DEB00D4DF82 /* RGMainCollectionView.m */,
+				01D505BA1EEA53B500C11982 /* RGStockDetailGraphView.h */,
+				01D505BB1EEA53B500C11982 /* RGStockDetailGraphView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0138F3F31EDFDA050090540B /* RGStockSearchResultCell.m in Sources */,
+				01D505BC1EEA53B500C11982 /* RGStockDetailGraphView.m in Sources */,
 				01F1E4471EB1B811000F1A94 /* RGURLDataFetcher.m in Sources */,
 				01794A9B1EB30715009090DE /* RGBrokerageYahooFinanceDataParser.m in Sources */,
 				01D505B91EE7C0B100C11982 /* RGStockDetailViewController.m in Sources */,

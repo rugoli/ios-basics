@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class RGStockSearchModel;
+@class RGStockDetailGraphView;
 
 @interface RGStockDetailViewController : UIViewController
 
 - (void)setStockModel:(RGStockSearchModel *)stockModel;
 
-@property (nonatomic, readwrite, strong) IBOutlet UINavigationItem *navigationItem;
+@property (nonatomic, readwrite, weak) IBOutlet UINavigationItem *navigationItem;
+@property (nonatomic, readwrite, weak) IBOutlet RGStockDetailGraphView *graphView;
 
 @end

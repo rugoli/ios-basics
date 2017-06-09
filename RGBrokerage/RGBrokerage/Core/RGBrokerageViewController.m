@@ -75,7 +75,7 @@
 static NSString *sqlQueryForSearchTerm(NSString *searchTerm)
 {
 	return [NSString stringWithFormat:@"select %@ from yahoo.finance.quotes where symbol IN ('%@')",
-					[StockModelDesiredFields() componentsJoinedByString:@", "],
+					[[RGStockSearchModel stockModelDesiredFieldNames] componentsJoinedByString:@", "],
 					searchTerm];
 }
 
@@ -114,6 +114,7 @@ static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 
 		RGStockDetailViewController *stockDetailVC = (RGStockDetailViewController *)navController.topViewController;
 		[stockDetailVC setStockModel:_selectedStock];
+		[stockDetailVC initializeDataFetcher];
 	}
 }
 

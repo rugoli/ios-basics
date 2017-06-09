@@ -15,17 +15,12 @@ static NSString	*const kCompanyNameField = @"Name";
 
 @implementation RGStockSearchModel
 
-- (instancetype)initWithStockResults:(NSDictionary *)stockResults
+- (instancetype)initWithSanitizedResults:(NSDictionary *)sanitizedResults
 {
-	if ([stockResults[kCompanyNameField] isEqual:[NSNull null]] ||
-			[stockResults[kLastTradePriceField] isEqual:[NSNull null]]) {
-		return nil;
-	}
-
-	return [self initWithSymbol:stockResults[kStockSymbolField]
-												 name:stockResults[kCompanyNameField]
-							 lastTradePrice:stockResults[kLastTradePriceField]
-							changeInPercent:stockResults[kChangeinPercentField]];
+	return [self initWithSymbol:sanitizedResults[kStockSymbolField]
+												 name:sanitizedResults[kCompanyNameField]
+							 lastTradePrice:sanitizedResults[kLastTradePriceField]
+							changeInPercent:sanitizedResults[kChangeinPercentField]];
 }
 
 - (instancetype)initWithSymbol:(NSString *)stockSymbol
@@ -42,16 +37,7 @@ static NSString	*const kCompanyNameField = @"Name";
 	return self;
 }
 
-- (NSString *)description
-{
-	NSMutableArray<NSString *> *formattedString = [NSMutableArray new];
-	for (NSString *field in StockModelDesiredFields()) {
-		[formattedString addObject:[NSString stringWithFormat:@"%@ : %@", field, [self _fieldForProperty][field]]];
-	}
-	return [formattedString componentsJoinedByString:@"\n"];
-}
-
-- (NSDictionary*)_fieldForProperty
+- (NSDictionary*)fieldToPropertyMapping
 {
 	return @{kCompanyNameField : _name,
 					 kStockSymbolField : _stockSymbol,
@@ -60,7 +46,7 @@ static NSString	*const kCompanyNameField = @"Name";
 					 };
 }
 
-NSArray<NSString *> *StockModelDesiredFields()
++ (NSArray<NSString *> *)stockModelDesiredFieldNames
 {
 	return @[kStockSymbolField, kLastTradePriceField, kChangeinPercentField, kCompanyNameField];
 }

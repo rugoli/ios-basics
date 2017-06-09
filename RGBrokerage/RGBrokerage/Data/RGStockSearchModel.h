@@ -7,16 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RGStockModel.h"
 
-@interface RGStockSearchModel : NSObject
-
-- (instancetype)initWithStockResults:(NSDictionary *)stockResults;
+@interface RGStockSearchModel : RGStockModel
 
 @property (nonatomic, readonly, copy) NSString *stockSymbol;
 @property (nonatomic, readonly, strong) NSNumber *price;
 @property (nonatomic, readonly, copy) NSString *changeInPercent;
 @property (nonatomic, readonly, copy) NSString *name;
-
-extern NSArray<NSString *> *StockModelDesiredFields(void);
 
 @end

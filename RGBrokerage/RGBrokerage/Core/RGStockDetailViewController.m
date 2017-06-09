@@ -22,6 +22,7 @@
 - (void)loadView
 {
 	[super loadView];
+	[_dataFetcher executeQuery:apiQueryForStockSymbol(_stockModel.stockSymbol)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,7 +56,7 @@
 static NSString *sqlQueryForStockSymbol(NSString *stockSymbol)
 {
 	return [NSString stringWithFormat:@"select %@ from yahoo.finance.quotes where symbol IN ('%@')",
-				[StockModelDesiredFields() componentsJoinedByString:@", "],
+				[[RGStockSearchModel stockModelDesiredFieldNames] componentsJoinedByString:@", "],
 				stockSymbol];
 }
 

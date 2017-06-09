@@ -14,6 +14,7 @@
 @interface RGStockDetailViewController : UIViewController
 
 - (void)setStockModel:(RGStockSearchModel *)stockModel;
+- (void)initializeDataFetcher;
 
 @property (nonatomic, readwrite, weak) IBOutlet UINavigationItem *navigationItem;
 @property (nonatomic, readwrite, weak) IBOutlet RGStockDetailGraphView *graphView;

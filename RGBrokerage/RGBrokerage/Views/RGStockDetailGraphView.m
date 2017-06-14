@@ -10,12 +10,18 @@
 
 @implementation RGStockDetailGraphView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
+	UIBezierPath *path = [UIBezierPath new];
+	[path addArcWithCenter:CGPointMake(rect.size.width / 2.0, rect.size.height / 2.0)
+									radius:MIN(rect.size.width, rect.size.height)/2.0 - 5.0
+							startAngle:0
+								endAngle:2 * M_PI
+							 clockwise:YES];
+	[path setLineWidth:1.0];
+	[[UIColor greenColor] setFill];
+	[[UIColor redColor] setStroke];
+	[path fill];
+	[path stroke];
 }
-*/
 
 @end

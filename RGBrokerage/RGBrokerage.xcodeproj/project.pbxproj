@@ -25,6 +25,7 @@
 		01D505DA1EEA617E00C11982 /* RGStockDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505D91EEA617E00C11982 /* RGStockDetailModel.m */; };
 		01F1E4471EB1B811000F1A94 /* RGURLDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4441EB1B811000F1A94 /* RGURLDataFetcher.m */; };
 		01F1E4481EB1B811000F1A94 /* RGURLDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1E4461EB1B811000F1A94 /* RGURLDataFetchOperation.m */; };
+		4A850E160B140E69D86683D3 /* Pods_RGBrokerage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548D26369AF302F0FCF040E6 /* Pods_RGBrokerage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,9 @@
 		01F1E4441EB1B811000F1A94 /* RGURLDataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetcher.m; path = ../../URLUtils/RGURLDataFetcher.m; sourceTree = "<group>"; };
 		01F1E4451EB1B811000F1A94 /* RGURLDataFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetchOperation.h; path = ../../URLUtils/RGURLDataFetchOperation.h; sourceTree = "<group>"; };
 		01F1E4461EB1B811000F1A94 /* RGURLDataFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetchOperation.m; path = ../../URLUtils/RGURLDataFetchOperation.m; sourceTree = "<group>"; };
+		21168961BF2E91089934F7F9 /* Pods-RGBrokerage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RGBrokerage.release.xcconfig"; path = "Pods/Target Support Files/Pods-RGBrokerage/Pods-RGBrokerage.release.xcconfig"; sourceTree = "<group>"; };
+		548D26369AF302F0FCF040E6 /* Pods_RGBrokerage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RGBrokerage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6B11A85FD687105235B4F0A /* Pods-RGBrokerage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RGBrokerage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RGBrokerage/Pods-RGBrokerage.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A850E160B140E69D86683D3 /* Pods_RGBrokerage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +85,8 @@
 			children = (
 				010C78471EA86D6300D4DF82 /* RGBrokerage */,
 				010C78461EA86D6300D4DF82 /* Products */,
+				C3F642055DA7E62E0F5462A1 /* Pods */,
+				91B2D7A9332198AB1773E395 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +178,23 @@
 			name = "Core Controllers";
 			sourceTree = "<group>";
 		};
+		91B2D7A9332198AB1773E395 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				548D26369AF302F0FCF040E6 /* Pods_RGBrokerage.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3F642055DA7E62E0F5462A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D6B11A85FD687105235B4F0A /* Pods-RGBrokerage.debug.xcconfig */,
+				21168961BF2E91089934F7F9 /* Pods-RGBrokerage.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -178,9 +202,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 010C785C1EA86D6300D4DF82 /* Build configuration list for PBXNativeTarget "RGBrokerage" */;
 			buildPhases = (
+				7F1E5DF5B2ECEB587382784A /* [CP] Check Pods Manifest.lock */,
 				010C78411EA86D6300D4DF82 /* Sources */,
 				010C78421EA86D6300D4DF82 /* Frameworks */,
 				010C78431EA86D6300D4DF82 /* Resources */,
+				70EF3D25A9EF0336A810A4F9 /* [CP] Embed Pods Frameworks */,
+				6754C5964DE5B5B12550EBCD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -237,6 +264,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6754C5964DE5B5B12550EBCD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RGBrokerage/Pods-RGBrokerage-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70EF3D25A9EF0336A810A4F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RGBrokerage/Pods-RGBrokerage-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F1E5DF5B2ECEB587382784A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		010C78411EA86D6300D4DF82 /* Sources */ = {
@@ -375,6 +450,7 @@
 		};
 		010C785D1EA86D6300D4DF82 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6B11A85FD687105235B4F0A /* Pods-RGBrokerage.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y3QN5VQT38;
@@ -387,6 +463,7 @@
 		};
 		010C785E1EA86D6300D4DF82 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21168961BF2E91089934F7F9 /* Pods-RGBrokerage.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y3QN5VQT38;

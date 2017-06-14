@@ -1,0 +1,5 @@
+target 'RGBrokerage' do
+  use_frameworks!
+  platform :ios, '6.0'
+  pod 'JBChartView'
+end

@@ -9,6 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "JBLineChartView.h"
 
+@protocol RGStockDataSourceDelegate
+
+- (void)dataSourceDataHasFinishedLoading;
+
+@end
+
 @interface RGStockGraphDataSource : NSObject <JBLineChartViewDataSource, JBLineChartViewDelegate>
+
+- (instancetype)initWithDelegate:(id<RGStockDataSourceDelegate>)delegate;
+
+@property (nonatomic, readonly, weak) id<RGStockDataSourceDelegate> delegate;
 
 @end

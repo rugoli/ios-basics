@@ -13,7 +13,11 @@
 #import "JBLineChartView.h"
 #import "RGStockGraphDataSource.h"
 
-@interface RGStockDetailViewController () <RGDataFetcherDelegate>
+@interface RGStockDetailViewController () <RGDataFetcherDelegate, RGStockDataSourceDelegate>
+
+@property (atomic, readwrite, assign) BOOL graphDidLayout;
+@property (atomic, readwrite, assign) BOOL dataLoadFinished;
+
 @end
 
 @implementation RGStockDetailViewController {
@@ -33,7 +37,7 @@
 {
 	[super loadView];
 	
-	_graphDataSource = [[RGStockGraphDataSource alloc] init];
+	_graphDataSource = [[RGStockGraphDataSource alloc] initWithDelegate:self];
 	_graphView.dataSource = _graphDataSource;
 	_graphView.delegate = _graphDataSource;
 	
@@ -52,7 +56,11 @@
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	[_graphView reloadData];
+	
+	self.graphDidLayout = YES;
+	if (self.dataLoadFinished) {
+		[_graphView reloadData];
+	}
 }
 
 - (void)initializeDataFetcher
@@ -94,6 +102,16 @@
 															 forQuery:(NSString *)query
 {
 	NSLog(@"testing");
+}
+
+# pragma mark - RGStockDataSourceDelegate methods
+
+- (void)dataSourceDataHasFinishedLoading
+{
+	self.dataLoadFinished = YES;
+	if (self.graphDidLayout) {
+		[_graphView reloadData];
+	}
 }
 
 @end

@@ -128,8 +128,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="RGStockDetailGraphView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="167"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="JBLineChartView">
+                                <rect key="frame" x="0.0" y="87" width="375" height="178"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -137,7 +137,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZDN-ij-hVz">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0XQ-AE-PkH">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="0XQ-AE-PkH">
                             <connections>
                                 <action selector="didTapCancel:" destination="9L7-JR-LWy" id="qiO-SJ-FWr"/>
                             </connections>
@@ -160,9 +160,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q7L-3E-b83" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bsk-9Z-BXt">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="Bsk-9Z-BXt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

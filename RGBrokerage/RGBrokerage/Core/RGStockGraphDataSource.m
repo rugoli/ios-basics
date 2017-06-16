@@ -47,14 +47,14 @@
 {
 	NSMutableArray *lineData = [_fakeData objectAtIndex:index];
 	[lineData insertObject:@(arc4random_uniform(20) + index + 1) atIndex:0];
-	for (NSUInteger j = 1; j < 100; j++) {
+	for (NSUInteger j = 1; j < 500; j++) {
 		[lineData insertObject:@([[lineData objectAtIndex:j-1] floatValue] * [self _getRandomPercentageMultiplier]) atIndex:j];
 	}
 }
 
 - (CGFloat)_getRandomPercentageMultiplier
 {
-	CGFloat randomPercent = (float)(arc4random_uniform(10) + 95);
+	CGFloat randomPercent = (float)(arc4random_uniform(10) + 95.5);
 	return randomPercent/100.00;
 }
 
@@ -67,7 +67,7 @@
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
 {
-	return 20;
+	return [[_fakeData objectAtIndex:lineIndex] count];
 }
 
 # pragma mark - JBLineChartViewDelegate methods
@@ -76,7 +76,7 @@
 verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
 						 atLineIndex:(NSUInteger)lineIndex
 {
-	return arc4random_uniform(20);
+	return [[[_fakeData objectAtIndex:lineIndex] objectAtIndex:horizontalIndex] floatValue];
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView

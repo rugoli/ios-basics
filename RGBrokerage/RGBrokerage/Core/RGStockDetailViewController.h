@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class RGStockSearchModel;
-@class RGStockDetailGraphView;
+@class JBLineChartView;
 
 @interface RGStockDetailViewController : UIViewController
 
@@ -17,6 +17,6 @@
 - (void)initializeDataFetcher;
 
 @property (nonatomic, readwrite, weak) IBOutlet UINavigationItem *navigationItem;
-@property (nonatomic, readwrite, weak) IBOutlet RGStockDetailGraphView *graphView;
+@property (nonatomic, readwrite, weak) IBOutlet JBLineChartView *graphView;
 
 @end

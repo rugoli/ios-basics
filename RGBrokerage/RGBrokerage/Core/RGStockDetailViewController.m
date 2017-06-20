@@ -41,8 +41,7 @@
 	_graphDataSource = [[RGStockGraphDataSource alloc] initWithDelegate:self];
 	_graphView.dataSource = _graphDataSource;
 	_graphView.delegate = _graphDataSource;
-	
-	[_pointDetailView setHidden:YES];
+	_graphView.headerView = _pointDetailView;
 	
 //	[_dataFetcher executeQuery:apiQueryForStockSymbol(_stockModel.stockSymbol)];
 }

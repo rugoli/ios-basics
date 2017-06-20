@@ -19,6 +19,19 @@
 	return self;
 }
 
+- (void)layoutSubviews
+{
+	[super layoutSubviews];
+	CGRect bounds = self.bounds;
+	
+	[_quoteNameLabel sizeToFit];
+	[_quoteNameLabel setCenter:CGPointMake(bounds.size.width / 2.0, 10)];
+	
+	[_quoteValueLabel sizeToFit];
+	[_quoteValueLabel setCenter:CGPointMake(bounds.size.width / 2.0, bounds.size.height - 10 - _quoteValueLabel.frame.size.height / 2.0)];
+
+}
+
 - (void)setHidden:(BOOL)hidden
 {
 	[super setHidden:hidden];

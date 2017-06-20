@@ -10,6 +10,7 @@
 
 @implementation RGStockGraphDataSource {
 	NSMutableArray<NSMutableArray<NSNumber *> *> *_fakeData;
+	NSMutableArray<NSMutableArray<NSNumber *> *> *_normalizedData;
 }
 
 - (instancetype)initWithDelegate:(id<RGStockDataSourceDelegate>)delegate
@@ -24,14 +25,16 @@
 - (void)_generateFakeData
 {
 	_fakeData = [@[[NSMutableArray new], [NSMutableArray new]] mutableCopy];
+	_normalizedData = [@[[NSMutableArray new], [NSMutableArray new]] mutableCopy];
 	
 	dispatch_group_t blockGroup = dispatch_group_create();
 	__weak __typeof(self) weakSelf = self;
 	for (NSUInteger i = 0; i < 2; i++) {
 		dispatch_group_async(blockGroup,
-												 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
-												 ^{
-													 [weakSelf _generateDataForLineIndex:i];
+												 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+													 __strong __typeof(self) strongSelf = weakSelf;
+													 [strongSelf _generateDataForLineIndex:i];
+													 [strongSelf _normalizeDataForLineIndex:i];
 												 });
 	}
 
@@ -49,6 +52,23 @@
 	[lineData insertObject:@(arc4random_uniform(20) + index + 1) atIndex:0];
 	for (NSUInteger j = 1; j < 500; j++) {
 		[lineData insertObject:@([[lineData objectAtIndex:j-1] floatValue] * [self _getRandomPercentageMultiplier]) atIndex:j];
+	}
+}
+
+/* I could have just normalized it from the beginning in _generateDataForLineIndex above,
+ * but in the future I will probably have real stock data that comes down all at once
+ * so I need to have a function that normalizes an array of numbers anyways.
+*/
+- (void)_normalizeDataForLineIndex:(NSUInteger)index
+{
+	NSMutableArray<NSNumber *> *lineData = [_fakeData objectAtIndex:index];
+	NSMutableArray<NSNumber *> *normalizedData = [_normalizedData objectAtIndex:index];
+	if ([[lineData objectAtIndex:0] floatValue] - 0 < 0.0001) {
+		return;
+	}
+	
+	for (NSUInteger i = 0; i < [lineData count]; i++) {
+		[normalizedData addObject:@(100.0 * [[lineData objectAtIndex:i] floatValue] / [[lineData objectAtIndex:0] floatValue])];
 	}
 }
 
@@ -76,7 +96,13 @@
 verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
 						 atLineIndex:(NSUInteger)lineIndex
 {
-	return [[[_fakeData objectAtIndex:lineIndex] objectAtIndex:horizontalIndex] floatValue];
+	return [[[_normalizedData objectAtIndex:lineIndex] objectAtIndex:horizontalIndex] floatValue];
+}
+
+- (NSNumber *)_realVerticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
+																		atLineIndex:(NSUInteger)lineIndex
+{
+	return [[_fakeData objectAtIndex:lineIndex] objectAtIndex:horizontalIndex];
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView
@@ -113,9 +139,8 @@ verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex
 					 touchPoint:(CGPoint)touchPoint
 {
 	[_delegate lineChartView:lineChartView
-		didSelectLineWithValue:[NSNumber numberWithFloat:[self lineChartView:lineChartView
-																				 verticalValueForHorizontalIndex:horizontalIndex
-																														 atLineIndex:lineIndex]]
+		didSelectLineWithValue:[self _realVerticalValueForHorizontalIndex:horizontalIndex
+																													atLineIndex:lineIndex]
 								 lineColor:[self lineChartView:lineChartView
 											 colorForLineAtLineIndex:lineIndex]
 									lineName:[self _nameForLineAtIndex:lineIndex]

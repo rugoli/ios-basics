@@ -12,6 +12,7 @@
 		010C78531EA86D6300D4DF82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 010C78511EA86D6300D4DF82 /* Main.storyboard */; };
 		010C78551EA86D6300D4DF82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 010C78541EA86D6300D4DF82 /* Assets.xcassets */; };
 		010C78581EA86D6300D4DF82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 010C78561EA86D6300D4DF82 /* LaunchScreen.storyboard */; };
+		012A3DB71EF8D61900555313 /* RGSelectedPointDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012A3DB61EF8D61900555313 /* RGSelectedPointDetailView.m */; };
 		01794A981EB30623009090DE /* RGCustomNSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01794A971EB30623009090DE /* RGCustomNSOperation.m */; };
 		01C4C48C1EF38C41005D9F04 /* RGStockGraphDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C4C48B1EF38C41005D9F04 /* RGStockGraphDataSource.m */; };
 		01D505C11EEA5A3800C11982 /* RGBrokerageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D505BE1EEA5A3800C11982 /* RGBrokerageViewController.m */; };
@@ -38,6 +39,8 @@
 		010C78541EA86D6300D4DF82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		010C78571EA86D6300D4DF82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		010C78591EA86D6300D4DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		012A3DB51EF8D61900555313 /* RGSelectedPointDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGSelectedPointDetailView.h; path = Views/RGSelectedPointDetailView.h; sourceTree = "<group>"; };
+		012A3DB61EF8D61900555313 /* RGSelectedPointDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGSelectedPointDetailView.m; path = Views/RGSelectedPointDetailView.m; sourceTree = "<group>"; };
 		01794A961EB30623009090DE /* RGCustomNSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGCustomNSOperation.h; path = ../../RGCustomNSOperation.h; sourceTree = "<group>"; };
 		01794A971EB30623009090DE /* RGCustomNSOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGCustomNSOperation.m; path = ../../RGCustomNSOperation.m; sourceTree = "<group>"; };
 		01C4C48A1EF38C41005D9F04 /* RGStockGraphDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGStockGraphDataSource.h; path = Core/RGStockGraphDataSource.h; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 		01F1E4421EB1A6F9000F1A94 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				012A3DB51EF8D61900555313 /* RGSelectedPointDetailView.h */,
+				012A3DB61EF8D61900555313 /* RGSelectedPointDetailView.m */,
 				01D505C91EEA5A6F00C11982 /* RGBrokerageSearchBar.h */,
 				01D505CA1EEA5A6F00C11982 /* RGBrokerageSearchBar.m */,
 				01D505CB1EEA5A6F00C11982 /* RGMainCollectionView.h */,
@@ -337,6 +342,7 @@
 				01F1E4481EB1B811000F1A94 /* RGURLDataFetchOperation.m in Sources */,
 				01D505C51EEA5A4B00C11982 /* RGStockSearchModel.m in Sources */,
 				01C4C48C1EF38C41005D9F04 /* RGStockGraphDataSource.m in Sources */,
+				012A3DB71EF8D61900555313 /* RGSelectedPointDetailView.m in Sources */,
 				01D505D11EEA5A6F00C11982 /* RGBrokerageSearchBar.m in Sources */,
 				01D505D71EEA5AC300C11982 /* RGStockModel.m in Sources */,
 			);

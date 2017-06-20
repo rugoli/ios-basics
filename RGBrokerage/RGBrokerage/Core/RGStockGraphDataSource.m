@@ -102,4 +102,23 @@ verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex
 	return [UIColor grayColor];
 }
 
+- (void)lineChartView:(JBLineChartView *)lineChartView
+ didSelectLineAtIndex:(NSUInteger)lineIndex
+			horizontalIndex:(NSUInteger)horizontalIndex
+					 touchPoint:(CGPoint)touchPoint
+{
+	[_delegate lineChartView:lineChartView
+		didSelectLineWithValue:[NSNumber numberWithFloat:[self lineChartView:lineChartView
+																				 verticalValueForHorizontalIndex:horizontalIndex
+																														 atLineIndex:lineIndex]]
+								 lineColor:[self lineChartView:lineChartView
+											 colorForLineAtLineIndex:lineIndex]
+							atTouchPoint:touchPoint];
+}
+
+- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView
+{
+	[_delegate didDeselectLineInLineChartView:lineChartView];
+}
+
 @end

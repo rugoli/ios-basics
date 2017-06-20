@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -128,13 +129,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="JBLineChartView">
-                                <rect key="frame" x="0.0" y="87" width="375" height="178"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="JBLineChartView">
+                                <rect key="frame" x="16" y="93" width="343" height="178"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDE-K7-ozi" customClass="RGSelectedPointDetailView">
+                                        <rect key="frame" x="95" y="26" width="117" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZ9-dy-Xya">
+                                                <rect key="frame" x="33" y="15" width="75" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="quoteValueLabel" destination="NZ9-dy-Xya" id="i0F-MK-Wmv"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ntv-1g-5GZ" secondAttribute="trailing" id="0P0-zT-NpA"/>
+                            <constraint firstItem="ntv-1g-5GZ" firstAttribute="top" secondItem="s13-nT-vLy" secondAttribute="bottom" constant="23" id="ITJ-r1-aN4"/>
+                            <constraint firstItem="Dtj-OR-yIQ" firstAttribute="top" secondItem="ntv-1g-5GZ" secondAttribute="bottom" constant="402" id="rE5-PH-cWh"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="ntv-1g-5GZ" secondAttribute="leading" id="xHJ-EV-7XP"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZDN-ij-hVz">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="0XQ-AE-PkH">
@@ -149,6 +174,7 @@
                     <connections>
                         <outlet property="graphView" destination="ntv-1g-5GZ" id="zqt-5O-GR0"/>
                         <outlet property="navigationItem" destination="ZDN-ij-hVz" id="hNN-fJ-V6F"/>
+                        <outlet property="pointDetailView" destination="cDE-K7-ozi" id="6YS-5b-FEx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Za-uw-yC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -160,7 +186,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q7L-3E-b83" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="Bsk-9Z-BXt">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="Bsk-9Z-BXt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>

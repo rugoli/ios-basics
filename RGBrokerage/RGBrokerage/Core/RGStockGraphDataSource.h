@@ -12,6 +12,11 @@
 @protocol RGStockDataSourceDelegate
 
 - (void)dataSourceDataHasFinishedLoading;
+- (void)lineChartView:(JBLineChartView *)lineChartView
+didSelectLineWithValue:(NSNumber *)value
+						lineColor:(UIColor *)lineColor
+				 atTouchPoint:(CGPoint)touchPoint;
+- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView;
 
 @end
 

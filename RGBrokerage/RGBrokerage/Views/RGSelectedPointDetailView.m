@@ -14,6 +14,7 @@
 {
 	if (self = [super initWithCoder:aDecoder]) {
 		[_quoteValueLabel setHidden:YES];
+		[_quoteNameLabel setHidden:YES];
 	}
 	return self;
 }
@@ -22,17 +23,33 @@
 {
 	[super setHidden:hidden];
 	[_quoteValueLabel setHidden:hidden];
+	[_quoteNameLabel setHidden:hidden];
 }
 
-- (void)setLabelColor:(UIColor *)labelColor
+- (void)setQuoteLabelColor:(UIColor *)labelColor
 {
 	[_quoteValueLabel setTextColor:labelColor];
 }
 
-- (void)setLabelValue:(NSString *)labelValue
+- (void)setQuoteLabelValue:(NSString *)labelValue
 {
-	[_quoteValueLabel setText:labelValue];
-	[_quoteValueLabel sizeToFit];
+	SetLabelValueAndResize(_quoteValueLabel, labelValue);
+}
+
+- (void)setQuoteNameValue:(NSString *)labelValue
+{
+	SetLabelValueAndResize(_quoteNameLabel, labelValue);
+}
+
+- (void)setQuoteNameColor:(UIColor *)labelColor
+{
+	[_quoteNameLabel setTextColor:labelColor];
+}
+
+static void SetLabelValueAndResize(UILabel *label, NSString *newValue)
+{
+	[label setText:newValue];
+	[label sizeToFit];
 }
 
 @end

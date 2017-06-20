@@ -10,9 +10,14 @@
 
 @interface RGSelectedPointDetailView : UIView
 
+@property (nonatomic, readwrite, strong) IBOutlet UILabel *quoteNameLabel;
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *quoteValueLabel;
 
-- (void)setLabelValue:(NSString *)labelValue;
-- (void)setLabelColor:(UIColor *)labelColor;
+- (void)setQuoteLabelValue:(NSString *)labelValue;
+- (void)setQuoteLabelColor:(UIColor *)labelColor;
+
+- (void)setQuoteNameValue:(NSString *)labelValue;
+- (void)setQuoteNameColor:(UIColor *)labelColor;
+
 
 @end

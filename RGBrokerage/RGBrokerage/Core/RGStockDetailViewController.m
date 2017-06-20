@@ -110,10 +110,16 @@
 - (void)lineChartView:(JBLineChartView *)lineChartView
 didSelectLineWithValue:(NSNumber *)value
 						lineColor:(UIColor *)lineColor
+						 lineName:(NSString *)lineName
 				 atTouchPoint:(CGPoint)touchPoint
 {
-	[_pointDetailView setLabelValue:FormattedStringFromQuoteValue(value)];
-	[_pointDetailView setLabelColor:lineColor];
+	NSLog(@"testing");
+	[_pointDetailView setQuoteLabelValue:FormattedStringFromQuoteValue(value)];
+	[_pointDetailView setQuoteLabelColor:lineColor];
+	
+	[_pointDetailView setQuoteNameValue:lineName];
+	[_pointDetailView setQuoteNameColor:lineColor];
+	
 	[_pointDetailView sizeToFit];
 	[_pointDetailView setHidden:NO];
 }

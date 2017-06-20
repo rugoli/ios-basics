@@ -12,6 +12,7 @@
 #import "RGBrokerageYahooFinanceDataParser.h"
 #import "JBLineChartView.h"
 #import "RGStockGraphDataSource.h"
+#import "RGSelectedPointDetailView.h"
 
 @interface RGStockDetailViewController () <RGDataFetcherDelegate, RGStockDataSourceDelegate>
 
@@ -40,6 +41,8 @@
 	_graphDataSource = [[RGStockGraphDataSource alloc] initWithDelegate:self];
 	_graphView.dataSource = _graphDataSource;
 	_graphView.delegate = _graphDataSource;
+	
+	[_pointDetailView setHidden:YES];
 	
 //	[_dataFetcher executeQuery:apiQueryForStockSymbol(_stockModel.stockSymbol)];
 }
@@ -102,6 +105,31 @@
 															 forQuery:(NSString *)query
 {
 	NSLog(@"testing");
+}
+
+- (void)lineChartView:(JBLineChartView *)lineChartView
+didSelectLineWithValue:(NSNumber *)value
+						lineColor:(UIColor *)lineColor
+				 atTouchPoint:(CGPoint)touchPoint
+{
+	[_pointDetailView setLabelValue:FormattedStringFromQuoteValue(value)];
+	[_pointDetailView setLabelColor:lineColor];
+	[_pointDetailView sizeToFit];
+	[_pointDetailView setHidden:NO];
+}
+
+- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView
+{
+	[_pointDetailView setHidden:YES];
+}
+
+static NSString *FormattedStringFromQuoteValue(NSNumber *quoteValue)
+{
+	NSNumberFormatter *formatter = [NSNumberFormatter new];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMaximumFractionDigits:2];
+	[formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
+	return [formatter stringFromNumber:quoteValue];
 }
 
 # pragma mark - RGStockDataSourceDelegate methods

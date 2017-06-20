@@ -10,6 +10,7 @@
 
 @class RGStockSearchModel;
 @class JBLineChartView;
+@class RGSelectedPointDetailView;
 
 @interface RGStockDetailViewController : UIViewController
 
@@ -18,5 +19,6 @@
 
 @property (nonatomic, readwrite, weak) IBOutlet UINavigationItem *navigationItem;
 @property (nonatomic, readwrite, weak) IBOutlet JBLineChartView *graphView;
+@property (nonatomic, readwrite, weak) IBOutlet RGSelectedPointDetailView *pointDetailView;
 
 @end

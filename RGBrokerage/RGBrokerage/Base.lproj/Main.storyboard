@@ -129,8 +129,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="JBLineChartView">
-                                <rect key="frame" x="16" y="93" width="343" height="178"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntv-1g-5GZ" customClass="JBLineChartView">
+                                <rect key="frame" x="16" y="87" width="343" height="178"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDE-K7-ozi" customClass="RGSelectedPointDetailView">
                                         <rect key="frame" x="95" y="26" width="117" height="56"/>
@@ -143,10 +143,18 @@
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9H-Zu-GeN">
+                                                <rect key="frame" x="33" y="35" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="quoteValueLabel" destination="NZ9-dy-Xya" id="i0F-MK-Wmv"/>
+                                            <outlet property="quoteNameLabel" destination="NZ9-dy-Xya" id="KU6-Xk-8Gm"/>
+                                            <outlet property="quoteValueLabel" destination="g9H-Zu-GeN" id="xmR-tx-OU3"/>
                                         </connections>
                                     </view>
                                 </subviews>

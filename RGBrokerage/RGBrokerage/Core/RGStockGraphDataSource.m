@@ -85,6 +85,11 @@ verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
 	return lineIndex == 0 ? [UIColor greenColor] : [UIColor redColor];
 }
 
+- (NSString *)_nameForLineAtIndex:(NSUInteger)lineIndex
+{
+	return lineIndex == 0 ? @"Green" : @"Red";
+}
+
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView
  widthForLineAtLineIndex:(NSUInteger)lineIndex
 {
@@ -113,6 +118,7 @@ verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex
 																														 atLineIndex:lineIndex]]
 								 lineColor:[self lineChartView:lineChartView
 											 colorForLineAtLineIndex:lineIndex]
+									lineName:[self _nameForLineAtIndex:lineIndex]
 							atTouchPoint:touchPoint];
 }
 

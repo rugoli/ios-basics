@@ -15,6 +15,7 @@
 - (void)lineChartView:(JBLineChartView *)lineChartView
 didSelectLineWithValue:(NSNumber *)value
 						lineColor:(UIColor *)lineColor
+						 lineName:(NSString *)lineName
 				 atTouchPoint:(CGPoint)touchPoint;
 - (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView;
 

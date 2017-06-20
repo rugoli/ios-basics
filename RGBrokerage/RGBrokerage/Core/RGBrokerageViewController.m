@@ -114,7 +114,7 @@ static NSString *apiQueryForSearchTerm(NSString *searchTerm)
 
 		RGStockDetailViewController *stockDetailVC = (RGStockDetailViewController *)navController.topViewController;
 		[stockDetailVC setStockModel:_selectedStock];
-		[stockDetailVC initializeDataFetcher];
+		[stockDetailVC generateFakeData];
 	}
 }
 

@@ -15,6 +15,7 @@
 @interface RGStockDetailViewController : UIViewController
 
 - (void)setStockModel:(RGStockSearchModel *)stockModel;
+- (void)generateFakeData;
 - (void)initializeDataFetcher;
 
 @property (nonatomic, readwrite, weak) IBOutlet UINavigationItem *navigationItem;

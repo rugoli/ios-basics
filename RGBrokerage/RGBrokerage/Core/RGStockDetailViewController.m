@@ -38,10 +38,7 @@
 {
 	[super loadView];
 	
-	_graphDataSource = [[RGStockGraphDataSource alloc] initWithDelegate:self];
-	_graphView.dataSource = _graphDataSource;
-	_graphView.delegate = _graphDataSource;
-	_graphView.headerView = _pointDetailView;
+	[_pointDetailView setHidden:YES];
 	
 //	[_dataFetcher executeQuery:apiQueryForStockSymbol(_stockModel.stockSymbol)];
 }
@@ -61,9 +58,11 @@
 	
 	self.graphDidLayout = YES;
 	if (self.dataLoadFinished) {
-		[_graphView reloadData];
+		[self _configureGraphViewAndReload];
 	}
 }
+
+# pragma mark - Public methods
 
 - (void)initializeDataFetcher
 {
@@ -78,6 +77,13 @@
 	
 	_navigationItem.title = stockModel.stockSymbol;
 }
+
+- (void)generateFakeData
+{
+	_graphDataSource = [[RGStockGraphDataSource alloc] initWithDelegate:self];
+}
+
+# pragma mark - Navigation
 
 - (IBAction)didTapCancel:(id)sender
 {
@@ -112,7 +118,6 @@ didSelectLineWithValue:(NSNumber *)value
 						 lineName:(NSString *)lineName
 				 atTouchPoint:(CGPoint)touchPoint
 {
-	NSLog(@"testing");
 	[_pointDetailView setQuoteLabelValue:FormattedStringFromQuoteValue(value)];
 	[_pointDetailView setQuoteLabelColor:lineColor];
 	
@@ -126,6 +131,14 @@ didSelectLineWithValue:(NSNumber *)value
 - (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView
 {
 	[_pointDetailView setHidden:YES];
+}
+
+- (void)_configureGraphViewAndReload
+{
+	_graphView.dataSource = _graphDataSource;
+	_graphView.delegate = _graphDataSource;
+	_graphView.headerView = _pointDetailView;
+	[_graphView reloadData];
 }
 
 static NSString *FormattedStringFromQuoteValue(NSNumber *quoteValue)
@@ -143,7 +156,7 @@ static NSString *FormattedStringFromQuoteValue(NSNumber *quoteValue)
 {
 	self.dataLoadFinished = YES;
 	if (self.graphDidLayout) {
-		[_graphView reloadData];
+		[self _configureGraphViewAndReload];
 	}
 }
 

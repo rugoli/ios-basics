@@ -11,6 +11,8 @@
 @interface RGOperation : NSObject
 
 - (instancetype _Nonnull )initWithBlock:(void (^_Nonnull)(void))block;
+- (void)start;
+- (void)cancel;
 
 @property (nullable, copy) void (^completionBlock)(void) NS_AVAILABLE(10_6, 4_0);
 

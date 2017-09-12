@@ -24,4 +24,14 @@
 	return self;
 }
 
+- (void)start
+{
+	// no-op
+}
+
+- (void)cancel
+{
+	// no-op
+}
+
 @end

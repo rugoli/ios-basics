@@ -16,6 +16,9 @@
 
 @implementation RGOperation
 
+@synthesize executing = _executing;
+@synthesize finished = _finished;
+
 - (instancetype _Nonnull )initWithBlock:(void (^_Nonnull)(void))block
 {
 	if (self = [super init]) {
@@ -26,12 +29,32 @@
 
 - (void)start
 {
-	// no-op
+	_executing = YES;
+	_executionBlock();
+	_executing = NO;
+	[self _setIsFinished:YES];
 }
 
 - (void)cancel
 {
 	// no-op
+}
+
+- (BOOL)isExecuting
+{
+	return _executing;
+}
+
+- (void)_setIsFinished:(BOOL)isFinished
+{
+	[self willChangeValueForKey:@"finished"];
+	_finished = isFinished;
+	[self didChangeValueForKey:@"finished"];
+}
+
+- (BOOL)isFinished
+{
+	return _finished;
 }
 
 @end

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Roshan Goli. All rights reserved.
 //
 
+@class RGOperation;
+
 #import <Foundation/Foundation.h>
 
 @interface RGOperationQueue : NSObject
@@ -13,7 +15,7 @@
 - (instancetype _Nonnull )initWithName:(NSString *_Nullable)name
 											qualityOfService:(NSQualityOfService)qualityOfService;
 
-//- (void)addOperation:(NSOperation *_Nonnull)op;
+- (void)addOperation:(RGOperation *_Nonnull)op;
 //- (void)addOperations:(NSArray<NSOperation *> *_Nonnull)ops waitUntilFinished:(BOOL)wait NS_AVAILABLE(10_6, 4_0);
 
 - (void)addOperationWithBlock:(void (^_Nonnull)(void))block NS_AVAILABLE(10_6, 4_0);

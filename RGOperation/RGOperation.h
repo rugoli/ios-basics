@@ -14,6 +14,9 @@
 - (void)start;
 - (void)cancel;
 
+@property (readonly, getter=isExecuting) BOOL executing;
+@property (readonly, getter=isFinished) BOOL finished;
+
 @property (nullable, copy) void (^completionBlock)(void) NS_AVAILABLE(10_6, 4_0);
 
 @end

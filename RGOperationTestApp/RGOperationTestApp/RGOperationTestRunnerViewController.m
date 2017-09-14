@@ -8,12 +8,33 @@
 
 #import "RGOperationTestRunnerViewController.h"
 
-@implementation RGOperationTestRunnerViewController
+#import "RGOperationQueue.h"
+#import "RGOperation.h"
+
+@implementation RGOperationTestRunnerViewController {
+	RGOperationQueue *_operationQueue;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+	if (self = [super initWithCoder:aDecoder]) {
+		_operationQueue = [[RGOperationQueue alloc] initWithName:@"myQueue"
+																						qualityOfService:NSQualityOfServiceUserInitiated];
+	}
+	return self;
+}
 
 - (IBAction)tappedRunTest:(id)sender
 {
-	NSLog(@"testing");
+	[_operationQueue addOperation:[self _operationWithLog:@"A"]];
+	[_operationQueue addOperation:[self _operationWithLog:@"B"]];
 }
 
+- (RGOperation *)_operationWithLog:(NSString *)logValue
+{
+	return [[RGOperation alloc] initWithBlock:^{
+		NSLog(@"%@", logValue);
+	}];
+}
 
 @end

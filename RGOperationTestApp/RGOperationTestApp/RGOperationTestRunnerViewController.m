@@ -24,10 +24,24 @@
 	return self;
 }
 
-- (IBAction)tappedRunTest:(id)sender
+- (IBAction)tappedSerialTest:(id)sender
 {
 	[_operationQueue addOperation:[self _operationWithLog:@"A"]];
 	[_operationQueue addOperation:[self _operationWithLog:@"B"]];
+}
+
+- (IBAction)tappedRunDepedencyTest:(id)sender
+{
+	RGOperation *operationA = [self _operationWithLog:@"A"];
+	RGOperation *operationB = [self _operationWithLog:@"B"];
+	RGOperation *operationC = [self _operationWithLog:@"C"];
+	
+	[operationB addDependency:operationC];
+	[operationA addDependency:operationB];
+	
+	[_operationQueue addOperation:operationA];
+	[_operationQueue addOperation:operationB];
+	[_operationQueue addOperation:operationC];
 }
 
 - (RGOperation *)_operationWithLog:(NSString *)logValue

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013B44E21F6A4B9B00109E96 /* RGOperation+PropertyObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = 013B44E11F6A4B9B00109E96 /* RGOperation+PropertyObserving.m */; };
 		01A2EAFA1F679CDF001ED03A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A2EAF91F679CDF001ED03A /* main.m */; };
 		01A2EAFD1F679CDF001ED03A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A2EAFC1F679CDF001ED03A /* AppDelegate.m */; };
 		01A2EB001F679CDF001ED03A /* RGOperationTestRunnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A2EAFF1F679CDF001ED03A /* RGOperationTestRunnerViewController.m */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		013B44E01F6A4B9B00109E96 /* RGOperation+PropertyObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RGOperation+PropertyObserving.h"; path = "../RGOperation/RGOperation+PropertyObserving.h"; sourceTree = "<group>"; };
+		013B44E11F6A4B9B00109E96 /* RGOperation+PropertyObserving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RGOperation+PropertyObserving.m"; path = "../RGOperation/RGOperation+PropertyObserving.m"; sourceTree = "<group>"; };
 		01A2EAF51F679CDF001ED03A /* RGOperationTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGOperationTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A2EAF91F679CDF001ED03A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01A2EAFB1F679CDF001ED03A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				01B4EC7F1F679F6B00762667 /* RGOperation.m */,
 				01B4EC801F679F6B00762667 /* RGOperationQueue.h */,
 				01B4EC811F679F6B00762667 /* RGOperationQueue.m */,
+				013B44E01F6A4B9B00109E96 /* RGOperation+PropertyObserving.h */,
+				013B44E11F6A4B9B00109E96 /* RGOperation+PropertyObserving.m */,
 			);
 			name = RGOperationFiles;
 			path = ..;
@@ -189,6 +194,7 @@
 				01A2EB001F679CDF001ED03A /* RGOperationTestRunnerViewController.m in Sources */,
 				01B4EC831F679F6B00762667 /* RGOperationQueue.m in Sources */,
 				01A2EAFD1F679CDF001ED03A /* AppDelegate.m in Sources */,
+				013B44E21F6A4B9B00109E96 /* RGOperation+PropertyObserving.m in Sources */,
 				01B4EC821F679F6B00762667 /* RGOperation.m in Sources */,
 				01A2EAFA1F679CDF001ED03A /* main.m in Sources */,
 			);

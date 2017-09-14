@@ -10,7 +10,8 @@
 
 @interface RGOperationTestRunnerViewController : UIViewController
 
-@property (nonatomic, readwrite, weak) IBOutlet UIButton *runTestButton;
+@property (nonatomic, readwrite, weak) IBOutlet UIButton *serialTestButton;
+@property (nonatomic, readwrite, weak) IBOutlet UIButton *testWithDependencies;
 
 @end
 

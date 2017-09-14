@@ -7,6 +7,7 @@
 
 #import "RGOperationQueue.h"
 
+#import "RGOperation+PropertyObserving.h"
 #import "RGOperation.h"
 
 @implementation RGOperationQueue {
@@ -34,15 +35,18 @@
 - (void)addOperation:(RGOperation *)op
 {
 	[_operationQueue addObject:op];
-	[self _executeOperation:op];
+	if ([op canExecute]) {
+		[self _executeOperation:op];
+	}
 }
 
 # pragma mark - Private methods
 
 - (void)_executeOperation:(RGOperation *)operation
 {
-	[self _addObserverForOperation:operation
-												 keyPath:@"finished"];
+	[operation addObserver:self
+								 keyPath:@"finished"];
+
 	dispatch_async(_underlyingQueue, ^{
 		[operation start];
 	});
@@ -52,7 +56,7 @@
 {
 	if ([_operationQueue count] > 0) {
 		for (RGOperation *op in _operationQueue) {
-			if (![op isExecuting] && ![op isFinished]) {
+			if ([op canExecute]) {
 				[self _executeOperation:op];
 				break;
 			}
@@ -69,27 +73,12 @@
 {
 	if ([object isKindOfClass:[RGOperation class]]
 			&& [change[NSKeyValueChangeNewKey] isEqual:@YES]) {
-		[self _removeObserverForOperation:(RGOperation *)object
-															keyPath:@"finished"];
+		[(RGOperation *)object removeObserver:self
+																	keyPath:@"finished"];
 		[_operationQueue removeObject:(RGOperation *)object];
+
 		[self _executeNextOperation];
 	}
-}
-
-- (void)_addObserverForOperation:(RGOperation *)operation
-												 keyPath:(NSString *)keyPath
-{
-	[operation addObserver:self
-							forKeyPath:keyPath
-								 options:NSKeyValueObservingOptionNew
-								 context:NULL];
-}
-
-- (void)_removeObserverForOperation:(RGOperation *)operation
-														keyPath:(NSString *)keyPath
-{
-	[operation removeObserver:self
-								 forKeyPath:keyPath];
 }
 
 @end

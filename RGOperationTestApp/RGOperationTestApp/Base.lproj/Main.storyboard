@@ -22,21 +22,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dn-sn-IRl">
-                                <rect key="frame" x="152" y="318.5" width="71" height="30"/>
+                                <rect key="frame" x="151" y="461" width="73" height="2"/>
+                                <state key="normal" title="Run Test 2"/>
+                                <connections>
+                                    <action selector="tappedRunDepedencyTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OMb-WJ-jOn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC1-Lr-0H8">
+                                <rect key="frame" x="152" y="356" width="71" height="30"/>
                                 <state key="normal" title="Run Test 1"/>
                                 <connections>
-                                    <action selector="tappedRunTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cT1-v6-1Ny"/>
+                                    <action selector="tappedSerialTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SwZ-PG-Vg3"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="top" secondItem="EC1-Lr-0H8" secondAttribute="bottom" constant="75" id="EXe-eb-LEm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6dn-sn-IRl" secondAttribute="bottom" constant="204" id="FBd-cQ-Cnr"/>
                             <constraint firstItem="6dn-sn-IRl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fai-xu-jFS"/>
-                            <constraint firstItem="6dn-sn-IRl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aR6-ua-jFR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EC1-Lr-0H8" secondAttribute="bottom" constant="281" id="Iv0-lg-Aig"/>
+                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Qgi-tE-ipU"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="413" id="UdT-QZ-nAh"/>
+                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="336" id="hkp-Ep-81T"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="runTestButton" destination="6dn-sn-IRl" id="cPH-cl-24b"/>
+                        <outlet property="serialTestButton" destination="EC1-Lr-0H8" id="dpB-44-znI"/>
+                        <outlet property="testWithDependencies" destination="6dn-sn-IRl" id="8HE-EY-PiP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -9,24 +9,26 @@
 #import "RGOperation.h"
 #import "RGOperation+PropertyObserving.h"
 
-@interface RGOperation ()
+typedef void (^RGExecutionBlock)(void);
 
-@property (nonatomic, copy, nonnull) void (^executionBlock)(void);
-
-@end
+NSString *const kFinishedPropertyKey = @"finished";
+NSString *const kReadyPropertyKey = @"ready";
 
 @implementation RGOperation {
 	NSMutableArray<RGOperation *> *_dependencies;
+	RGExecutionBlock _executionBlock;
 }
 
 @synthesize executing = _executing;
 @synthesize finished = _finished;
+@synthesize ready = _ready;
 
 - (instancetype _Nonnull )initWithBlock:(void (^_Nonnull)(void))block
 {
 	if (self = [super init]) {
 		_executionBlock = block;
 		_dependencies = [NSMutableArray new];
+		_ready = YES;
 	}
 	return self;
 }
@@ -44,7 +46,19 @@
 	// no-op
 }
 
-- (BOOL)canExecute
+- (void)_setIsReady:(BOOL)isReady
+{
+	[self willChangeValueForKey:kReadyPropertyKey];
+	_ready = isReady;
+	[self didChangeValueForKey:kReadyPropertyKey];
+}
+
+- (BOOL)isReady
+{
+	return _ready;
+}
+
+- (BOOL)_canExecute
 {
 	return !_executing && !_finished && _dependencies.count == 0;
 }
@@ -62,22 +76,26 @@
 - (void)addDependency:(RGOperation *_Nonnull)op
 {
 	[op addObserver:self
-					keyPath:@"finished"];
+					keyPath:kFinishedPropertyKey];
 	[_dependencies addObject:op];
+	[self _setIsReady:NO];
 }
 
 - (void)removeDependency:(RGOperation *_Nonnull)op
 {
 	[op removeObserver:self
-						 keyPath:@"finished"];
+						 keyPath:kFinishedPropertyKey];
 	[_dependencies removeObject:op];
+	if ([self _canExecute]) {
+		[self _setIsReady:YES];
+	}
 }
 
 - (void)_setIsFinished:(BOOL)isFinished
 {
-	[self willChangeValueForKey:@"finished"];
+	[self willChangeValueForKey:kFinishedPropertyKey];
 	_finished = isFinished;
-	[self didChangeValueForKey:@"finished"];
+	[self didChangeValueForKey:kFinishedPropertyKey];
 }
 
 - (BOOL)isFinished

@@ -21,30 +21,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dn-sn-IRl">
-                                <rect key="frame" x="151" y="461" width="73" height="2"/>
-                                <state key="normal" title="Run Test 2"/>
-                                <connections>
-                                    <action selector="tappedRunDepedencyTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OMb-WJ-jOn"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC1-Lr-0H8">
-                                <rect key="frame" x="152" y="356" width="71" height="30"/>
+                                <rect key="frame" x="136" y="220" width="103" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                 <state key="normal" title="Run Test 1"/>
                                 <connections>
                                     <action selector="tappedSerialTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SwZ-PG-Vg3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dn-sn-IRl">
+                                <rect key="frame" x="128" y="459" width="119" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                <state key="normal" title="Run Test 2"/>
+                                <connections>
+                                    <action selector="tappedRunDepedencyTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OMb-WJ-jOn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6dn-sn-IRl" firstAttribute="top" secondItem="EC1-Lr-0H8" secondAttribute="bottom" constant="75" id="EXe-eb-LEm"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6dn-sn-IRl" secondAttribute="bottom" constant="204" id="FBd-cQ-Cnr"/>
-                            <constraint firstItem="6dn-sn-IRl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fai-xu-jFS"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EC1-Lr-0H8" secondAttribute="bottom" constant="281" id="Iv0-lg-Aig"/>
-                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Qgi-tE-ipU"/>
-                            <constraint firstItem="6dn-sn-IRl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="413" id="UdT-QZ-nAh"/>
-                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="336" id="hkp-Ep-81T"/>
+                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6kT-ZR-agd"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="height" secondItem="EC1-Lr-0H8" secondAttribute="height" id="kWa-XB-FTv"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n9e-be-gHQ"/>
+                            <constraint firstItem="EC1-Lr-0H8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="sbo-Zg-2K3"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="width" secondItem="EC1-Lr-0H8" secondAttribute="width" id="ufT-gr-ulk"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="top" secondItem="EC1-Lr-0H8" secondAttribute="bottom" constant="73" id="vUC-pH-lh5"/>
+                            <constraint firstItem="6dn-sn-IRl" firstAttribute="centerX" secondItem="EC1-Lr-0H8" secondAttribute="centerX" id="zL5-Vu-Djf"/>
                         </constraints>
                     </view>
                     <connections>

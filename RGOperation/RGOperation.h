@@ -8,15 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * _Nonnull const kFinishedPropertyKey;
+extern NSString * _Nonnull const kReadyPropertyKey;
+
 @interface RGOperation : NSObject
 
 - (instancetype _Nonnull )initWithBlock:(void (^_Nonnull)(void))block;
 - (void)start;
 - (void)cancel;
-- (BOOL)canExecute;
 
 @property (readonly, getter=isExecuting) BOOL executing;
 @property (readonly, getter=isFinished) BOOL finished;
+@property (readonly, getter=isReady) BOOL ready;
+
 
 - (void)addDependency:(RGOperation *_Nonnull)op;
 - (void)removeDependency:(RGOperation *_Nonnull)op;

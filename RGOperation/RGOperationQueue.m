@@ -32,11 +32,16 @@
 	[self addOperation:newOperation];
 }
 
+// when we add a new operation, if it is ready to execute,
+// exeucte it. Otherwise, observe ready property
 - (void)addOperation:(RGOperation *)op
 {
 	[_operationQueue addObject:op];
-	if ([op canExecute]) {
+	if ([op isReady]) {
 		[self _executeOperation:op];
+	} else {
+		[op addObserver:self
+						keyPath:kReadyPropertyKey];
 	}
 }
 
@@ -45,23 +50,11 @@
 - (void)_executeOperation:(RGOperation *)operation
 {
 	[operation addObserver:self
-								 keyPath:@"finished"];
+								 keyPath:kFinishedPropertyKey];
 
 	dispatch_async(_underlyingQueue, ^{
 		[operation start];
 	});
-}
-
-- (void)_executeNextOperation
-{
-	if ([_operationQueue count] > 0) {
-		for (RGOperation *op in _operationQueue) {
-			if ([op canExecute]) {
-				[self _executeOperation:op];
-				break;
-			}
-		}
-	}
 }
 
 # pragma mark - Operation notification observer
@@ -71,13 +64,18 @@
 												change:(NSDictionary<NSKeyValueChangeKey,id> *)change
 											 context:(void *)context
 {
-	if ([object isKindOfClass:[RGOperation class]]
+	if ([keyPath isEqualToString:kFinishedPropertyKey]
+			&& [object isKindOfClass:[RGOperation class]]
 			&& [change[NSKeyValueChangeNewKey] isEqual:@YES]) {
 		[(RGOperation *)object removeObserver:self
-																	keyPath:@"finished"];
+																	keyPath:kFinishedPropertyKey];
 		[_operationQueue removeObject:(RGOperation *)object];
-
-		[self _executeNextOperation];
+	} else if ([keyPath isEqualToString:kReadyPropertyKey]
+						 && [object isKindOfClass:[RGOperation class]]
+						 && [change[NSKeyValueChangeNewKey] isEqual:@YES]) {
+		[(RGOperation *)object removeObserver:self
+																	keyPath:kReadyPropertyKey];
+		[self _executeOperation:(RGOperation *)object];
 	}
 }
 

@@ -10,6 +10,7 @@
 
 @interface RGTableViewController : UIViewController
 
+@property (nonatomic, strong, readwrite) IBOutlet UITableView *tableView;
 
 @end
 

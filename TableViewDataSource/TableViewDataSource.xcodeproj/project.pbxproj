@@ -14,6 +14,7 @@
 		0179C8511F6F81EE00268DCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0179C8501F6F81EE00268DCD /* Assets.xcassets */; };
 		0179C8541F6F81EE00268DCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0179C8521F6F81EE00268DCD /* LaunchScreen.storyboard */; };
 		0179C85D1F6F837800268DCD /* RGMockTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */; };
+		0179C8601F6F863E00268DCD /* RGMockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		0179C8551F6F81EE00268DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0179C85B1F6F837800268DCD /* RGMockTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMockTableViewDataSource.h; sourceTree = "<group>"; };
 		0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMockTableViewDataSource.m; sourceTree = "<group>"; };
+		0179C85E1F6F863E00268DCD /* RGMockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMockTableViewCell.h; sourceTree = "<group>"; };
+		0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMockTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				0179C84B1F6F81EE00268DCD /* RGTableViewController.m */,
 				0179C85B1F6F837800268DCD /* RGMockTableViewDataSource.h */,
 				0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */,
+				0179C85E1F6F863E00268DCD /* RGMockTableViewCell.h */,
+				0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */,
 				0179C84D1F6F81EE00268DCD /* Main.storyboard */,
 				0179C8501F6F81EE00268DCD /* Assets.xcassets */,
 				0179C8521F6F81EE00268DCD /* LaunchScreen.storyboard */,
@@ -158,6 +163,7 @@
 			files = (
 				0179C84C1F6F81EE00268DCD /* RGTableViewController.m in Sources */,
 				0179C8491F6F81EE00268DCD /* AppDelegate.m in Sources */,
+				0179C8601F6F863E00268DCD /* RGMockTableViewCell.m in Sources */,
 				0179C8461F6F81EE00268DCD /* main.m in Sources */,
 				0179C85D1F6F837800268DCD /* RGMockTableViewDataSource.m in Sources */,
 			);

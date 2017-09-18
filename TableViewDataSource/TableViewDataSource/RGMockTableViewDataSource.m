@@ -8,17 +8,22 @@
 
 #import "RGMockTableViewDataSource.h"
 
+#import "RGMockTableViewCell.h"
+
 @implementation RGMockTableViewDataSource {
-  NSMutableArray *_cellData;
+  NSMutableArray<NSNumber *> *_cellData;
   
   NSInteger _secondsElapsed;
+  
+  __weak id<RGMockTableViewDataSourceListener> _dataSourceListener;
 }
 
-- (instancetype)init
+- (instancetype)initWithDataSourceListener:(id<RGMockTableViewDataSourceListener>)dataSourceListener
 {
   if (self = [super init]) {
     _cellData = [NSMutableArray new];
     _secondsElapsed = 0;
+    _dataSourceListener = dataSourceListener;
   }
   return self;
 }
@@ -31,13 +36,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return nil;
+  RGMockTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMockCellReuseID];
+  if (!cell) {
+    cell = [[RGMockTableViewCell alloc] initWithCounterText:[self _cellTextFromRow:indexPath]];
+  } else {
+    [cell configureWithNewCounter:[self _cellTextFromRow:indexPath]];
+  }
+  
+  return cell;
+}
+
+- (NSString *)_cellTextFromRow:(NSIndexPath *)indexPath
+{
+  return [NSString stringWithFormat:@"%@", _cellData[indexPath.row]];
 }
 
 # pragma mark - Public API
 
-- (void)startGenerating
+- (void)startGeneratingForTableView:(UITableView *)tableView;
 {
+  [tableView registerClass:[RGMockTableViewCell class]
+    forCellReuseIdentifier:kMockCellReuseID];
   [NSTimer scheduledTimerWithTimeInterval:1.0f
                                    target:self
                                  selector:@selector(_addSecondsElapsedObject)
@@ -50,6 +69,7 @@
   _secondsElapsed++;
   [_cellData addObject:@(_secondsElapsed)];
   NSLog(@"%lu", _secondsElapsed);
+  [_dataSourceListener mockDataSourceAddedNewObject];
 }
 
 @end

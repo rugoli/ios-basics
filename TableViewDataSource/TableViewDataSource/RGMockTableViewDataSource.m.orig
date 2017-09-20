@@ -12,7 +12,6 @@
 
 @implementation RGMockTableViewDataSource {
   NSMutableArray<NSNumber *> *_cellData;
-  NSMutableArray<NSString *> *_randomCellSubtitle;
   
   NSInteger _secondsElapsed;
   
@@ -23,7 +22,6 @@
 {
   if (self = [super init]) {
     _cellData = [NSMutableArray new];
-    _randomCellSubtitle = [NSMutableArray new];
     _secondsElapsed = 0;
     _dataSourceListener = dataSourceListener;
   }
@@ -38,12 +36,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"prototype-cell"];
+  RGMockTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMockCellReuseID];
   if (!cell) {
-    cell = [[UITableViewCell alloc] init];
+    cell = [[RGMockTableViewCell alloc] initWithCounterText:[self _cellTextFromRow:indexPath]];
   } else {
-    cell.textLabel.text = [self _cellTextFromRow:indexPath];
-    cell.detailTextLabel.text = _randomCellSubtitle[indexPath.row];
+    cell.counterLabel.text = [self _cellTextFromRow:indexPath];
+    [cell configureWithNewCounter:[self _cellTextFromRow:indexPath]];
   }
   
   return cell;
@@ -52,11 +50,6 @@
 - (NSString *)_cellTextFromRow:(NSIndexPath *)indexPath
 {
   return [NSString stringWithFormat:@"%@", _cellData[indexPath.row]];
-}
-
-- (NSString *)_randomNumber
-{
-  return [NSString stringWithFormat:@"%u", arc4random_uniform(20)];
 }
 
 # pragma mark - Public API
@@ -76,7 +69,6 @@
 {
   _secondsElapsed++;
   [_cellData addObject:@(_secondsElapsed)];
-  [_randomCellSubtitle addObject:[self _randomNumber]];
   NSLog(@"%lu", _secondsElapsed);
   [_dataSourceListener mockDataSourceAddedNewObject];
 }

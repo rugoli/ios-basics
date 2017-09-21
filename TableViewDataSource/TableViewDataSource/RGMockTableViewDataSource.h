@@ -9,16 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@protocol RGMockTableViewDataSourceListener
-
-- (void)mockDataSourceAddedNewObject;
-
-@end
-
 @interface RGMockTableViewDataSource : NSObject <UITableViewDataSource>
 
-- (instancetype)initWithDataSourceListener:(id<RGMockTableViewDataSourceListener>)dataSourceListener;
-
 - (void)startGeneratingForTableView:(UITableView *)tableView;
+
+@property (nonatomic, strong, readwrite) UITableView *tableView;
 
 @end

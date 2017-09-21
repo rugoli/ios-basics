@@ -15,17 +15,14 @@
   NSMutableArray<NSString *> *_randomCellSubtitle;
   
   NSInteger _secondsElapsed;
-  
-  __weak id<RGMockTableViewDataSourceListener> _dataSourceListener;
 }
 
-- (instancetype)initWithDataSourceListener:(id<RGMockTableViewDataSourceListener>)dataSourceListener
+- (instancetype)init
 {
   if (self = [super init]) {
     _cellData = [NSMutableArray new];
     _randomCellSubtitle = [NSMutableArray new];
     _secondsElapsed = 0;
-    _dataSourceListener = dataSourceListener;
   }
   return self;
 }
@@ -74,11 +71,28 @@
 
 - (void)_addSecondsElapsedObject
 {
+  [_tableView beginUpdates];
   _secondsElapsed++;
-  [_cellData addObject:@(_secondsElapsed)];
-  [_randomCellSubtitle addObject:[self _randomNumber]];
+  
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self _tableInsertionPoint]
+                                              inSection:0];
+  [_cellData insertObject:@(_secondsElapsed)
+                  atIndex:indexPath.row];
+  [_randomCellSubtitle insertObject:[self _randomNumber]
+                            atIndex:indexPath.row];
   NSLog(@"%lu", _secondsElapsed);
-  [_dataSourceListener mockDataSourceAddedNewObject];
+  
+  [_tableView insertRowsAtIndexPaths:@[indexPath]
+                    withRowAnimation:UITableViewRowAnimationTop];
+  [_tableView endUpdates];
+}
+
+- (NSInteger)_tableInsertionPoint
+{
+  if (_cellData.count == 0) {
+    return 0;
+  }
+  return MAX(arc4random_uniform(_cellData.count), 0);
 }
 
 @end

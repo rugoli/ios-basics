@@ -71,7 +71,6 @@
 
 - (void)_addSecondsElapsedObject
 {
-  [_tableView beginUpdates];
   _secondsElapsed++;
   
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self _tableInsertionPoint]
@@ -84,7 +83,6 @@
   
   [_tableView insertRowsAtIndexPaths:@[indexPath]
                     withRowAnimation:UITableViewRowAnimationTop];
-  [_tableView endUpdates];
 }
 
 - (NSInteger)_tableInsertionPoint

@@ -8,21 +8,30 @@
 
 #import "RGMockTableViewDataSource.h"
 
+#import "RGiTunesDataParser.h"
+#import "RGURLDataFetcher.h"
+#import "RGiTunesTableCellViewModel.h"
 #import "RGMockTableViewCell.h"
 
+@interface RGMockTableViewDataSource () <RGDataFetcherDelegate>
+@end
+
 @implementation RGMockTableViewDataSource {
-  NSMutableArray<NSNumber *> *_cellData;
-  NSMutableArray<NSString *> *_randomCellSubtitle;
+  NSMutableArray<RGiTunesTableCellViewModel *> *_songs;
+  NSArray<NSString *> *_sampleSearchTerms;
   
-  NSInteger _secondsElapsed;
+  RGURLDataFetcher *_urlDataFetcher;
 }
 
 - (instancetype)init
 {
   if (self = [super init]) {
-    _cellData = [NSMutableArray new];
-    _randomCellSubtitle = [NSMutableArray new];
-    _secondsElapsed = 0;
+    _songs = [NSMutableArray new];
+    _sampleSearchTerms = @[@"Hello", @"Love", @"Fight", @"Beatles", @"Hate", @"Broken", @"Time", @"Never", @"Swift", @"Adele", @"Whatever", @"Rolling Stones", @"My", @"Dragon"];
+    
+    _urlDataFetcher = [[RGURLDataFetcher alloc] initWithQueueName:@"data-fetcher"
+                                                       dataParser:[RGiTunesDataParser class]];
+    _urlDataFetcher.delegate = self;
   }
   return self;
 }
@@ -30,7 +39,7 @@
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-  return _cellData.count;
+  return _songs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -39,21 +48,11 @@
   if (!cell) {
     cell = [[UITableViewCell alloc] init];
   } else {
-    cell.textLabel.text = [self _cellTextFromRow:indexPath];
-    cell.detailTextLabel.text = _randomCellSubtitle[indexPath.row];
+    cell.textLabel.text = _songs[indexPath.row].name;
+    cell.detailTextLabel.text = _songs[indexPath.row].author;
   }
   
   return cell;
-}
-
-- (NSString *)_cellTextFromRow:(NSIndexPath *)indexPath
-{
-  return [NSString stringWithFormat:@"%@", _cellData[indexPath.row]];
-}
-
-- (NSString *)_randomNumber
-{
-  return [NSString stringWithFormat:@"%u", arc4random_uniform(20)];
 }
 
 # pragma mark - Public API
@@ -64,33 +63,49 @@
     forCellReuseIdentifier:kMockCellReuseID];
   [NSTimer scheduledTimerWithTimeInterval:1.0f
                                    target:self
-                                 selector:@selector(_addSecondsElapsedObject)
+                                 selector:@selector(_addRandomSong)
                                  userInfo:nil
                                   repeats:YES];
 }
 
-- (void)_addSecondsElapsedObject
+- (void)_addRandomSong
 {
-  _secondsElapsed++;
-  
-  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self _tableInsertionPoint]
-                                              inSection:0];
-  [_cellData insertObject:@(_secondsElapsed)
-                  atIndex:indexPath.row];
-  [_randomCellSubtitle insertObject:[self _randomNumber]
-                            atIndex:indexPath.row];
-  NSLog(@"%lu", _secondsElapsed);
-  
-  [_tableView insertRowsAtIndexPaths:@[indexPath]
-                    withRowAnimation:UITableViewRowAnimationTop];
+  [_urlDataFetcher executeQuery:[self _randomQuery]];
 }
 
 - (NSInteger)_tableInsertionPoint
 {
-  if (_cellData.count == 0) {
+  if (_songs.count == 0) {
     return 0;
   }
-  return MAX(arc4random_uniform(_cellData.count), 0);
+  return MAX(arc4random_uniform(_songs.count), 0);
+}
+
+- (NSString *)_randomQuery
+{
+  NSString *searchTerm = _sampleSearchTerms[arc4random_uniform(_sampleSearchTerms.count)];
+  return [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&limit=3&media=music", searchTerm];
+}
+
+# pragma mark - RGDataFetcherDelegate methods
+
+- (void)dataFetcherDidFinishWithResults:(NSArray<id> *)results
+                               forQuery:(NSString *)query
+{
+  RGiTunesTableCellViewModel *randomResult = (RGiTunesTableCellViewModel *)results[arc4random_uniform(results.count)];
+  
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self _tableInsertionPoint]
+                                              inSection:0];
+  [_songs insertObject:randomResult atIndex:indexPath.row];
+  
+  __weak __typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    __strong __typeof(self) strongSelf = weakSelf;
+    if (strongSelf) {
+      [strongSelf->_tableView insertRowsAtIndexPaths:@[indexPath]
+                                    withRowAnimation:UITableViewRowAnimationTop];
+    }
+  });
 }
 
 @end

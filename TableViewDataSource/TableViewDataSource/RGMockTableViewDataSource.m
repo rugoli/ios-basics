@@ -50,6 +50,9 @@
   } else {
     cell.textLabel.text = _songs[indexPath.row].name;
     cell.detailTextLabel.text = _songs[indexPath.row].author;
+    [_songs[indexPath.row] fetchImageForURL:^(UIImage *image) {
+      cell.imageView.image = image;
+    }];
   }
   
   return cell;
@@ -92,6 +95,9 @@
 - (void)dataFetcherDidFinishWithResults:(NSArray<id> *)results
                                forQuery:(NSString *)query
 {
+  if (results.count == 0) {
+    return;
+  }
   RGiTunesTableCellViewModel *randomResult = (RGiTunesTableCellViewModel *)results[arc4random_uniform(results.count)];
   
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self _tableInsertionPoint]

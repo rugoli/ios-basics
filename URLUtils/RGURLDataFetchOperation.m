@@ -61,7 +61,7 @@
 - (void)handleDownloadWithData:(NSData *)data
 											response:(NSURLResponse *)response
 {
-	if (self.isCancelled) {
+	if (self.isCancelled || data == nil) {
 		[self markAsDone];
 		return;
 	}

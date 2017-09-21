@@ -24,7 +24,10 @@
 
 - (void)fetchImageForURL:(RGiTunesTableCellViewModelCallbackBlock)completionBlock
 {
-	NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:_imageURL]];
+  NSError *error;
+  NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:_imageURL]
+                                               options:NSDataReadingUncached
+                                                 error:&error];
 	if (data == nil) {
 		return;
 	}

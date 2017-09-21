@@ -1,5 +1,5 @@
 syntax: glob
 
-*.xcbkptlist
+*.xcbkptlist*
 *.hgrc
-*.xcuserstate
+*.xcuserstate*

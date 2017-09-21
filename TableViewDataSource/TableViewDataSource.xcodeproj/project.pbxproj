@@ -15,6 +15,11 @@
 		0179C8541F6F81EE00268DCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0179C8521F6F81EE00268DCD /* LaunchScreen.storyboard */; };
 		0179C85D1F6F837800268DCD /* RGMockTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */; };
 		0179C8601F6F863E00268DCD /* RGMockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */; };
+		0179C86C1F73730000268DCD /* RGURLDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C8691F73730000268DCD /* RGURLDataFetcher.m */; };
+		0179C86D1F73730000268DCD /* RGURLDataFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C86B1F73730000268DCD /* RGURLDataFetchOperation.m */; };
+		0179C8731F73734000268DCD /* RGiTunesDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C8701F73734000268DCD /* RGiTunesDataParser.m */; };
+		0179C8741F73734000268DCD /* RGiTunesTableCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C8721F73734000268DCD /* RGiTunesTableCellViewModel.m */; };
+		0179C8781F73736700268DCD /* RGCustomNSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0179C8771F73736700268DCD /* RGCustomNSOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,16 @@
 		0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMockTableViewDataSource.m; sourceTree = "<group>"; };
 		0179C85E1F6F863E00268DCD /* RGMockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMockTableViewCell.h; sourceTree = "<group>"; };
 		0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMockTableViewCell.m; sourceTree = "<group>"; };
+		0179C8681F73730000268DCD /* RGURLDataFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetcher.h; path = ../../URLUtils/RGURLDataFetcher.h; sourceTree = "<group>"; };
+		0179C8691F73730000268DCD /* RGURLDataFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetcher.m; path = ../../URLUtils/RGURLDataFetcher.m; sourceTree = "<group>"; };
+		0179C86A1F73730000268DCD /* RGURLDataFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGURLDataFetchOperation.h; path = ../../URLUtils/RGURLDataFetchOperation.h; sourceTree = "<group>"; };
+		0179C86B1F73730000268DCD /* RGURLDataFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGURLDataFetchOperation.m; path = ../../URLUtils/RGURLDataFetchOperation.m; sourceTree = "<group>"; };
+		0179C86F1F73734000268DCD /* RGiTunesDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGiTunesDataParser.h; path = ../../RGURLConnection/RGURLConnection/RGiTunesDataParser.h; sourceTree = "<group>"; };
+		0179C8701F73734000268DCD /* RGiTunesDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGiTunesDataParser.m; path = ../../RGURLConnection/RGURLConnection/RGiTunesDataParser.m; sourceTree = "<group>"; };
+		0179C8711F73734000268DCD /* RGiTunesTableCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGiTunesTableCellViewModel.h; path = ../../RGURLConnection/RGURLConnection/RGiTunesTableCellViewModel.h; sourceTree = "<group>"; };
+		0179C8721F73734000268DCD /* RGiTunesTableCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGiTunesTableCellViewModel.m; path = ../../RGURLConnection/RGURLConnection/RGiTunesTableCellViewModel.m; sourceTree = "<group>"; };
+		0179C8761F73736700268DCD /* RGCustomNSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RGCustomNSOperation.h; path = ../../RGCustomNSOperation.h; sourceTree = "<group>"; };
+		0179C8771F73736700268DCD /* RGCustomNSOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RGCustomNSOperation.m; path = ../../RGCustomNSOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +85,9 @@
 				0179C84B1F6F81EE00268DCD /* RGTableViewController.m */,
 				0179C85B1F6F837800268DCD /* RGMockTableViewDataSource.h */,
 				0179C85C1F6F837800268DCD /* RGMockTableViewDataSource.m */,
-				0179C85E1F6F863E00268DCD /* RGMockTableViewCell.h */,
-				0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */,
+				0179C87C1F73786800268DCD /* Model */,
+				0179C8751F73734C00268DCD /* Views */,
+				0179C86E1F73730800268DCD /* Utils */,
 				0179C84D1F6F81EE00268DCD /* Main.storyboard */,
 				0179C8501F6F81EE00268DCD /* Assets.xcassets */,
 				0179C8521F6F81EE00268DCD /* LaunchScreen.storyboard */,
@@ -87,6 +103,39 @@
 				0179C8451F6F81EE00268DCD /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0179C86E1F73730800268DCD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0179C86F1F73734000268DCD /* RGiTunesDataParser.h */,
+				0179C8701F73734000268DCD /* RGiTunesDataParser.m */,
+				0179C8681F73730000268DCD /* RGURLDataFetcher.h */,
+				0179C8691F73730000268DCD /* RGURLDataFetcher.m */,
+				0179C86A1F73730000268DCD /* RGURLDataFetchOperation.h */,
+				0179C86B1F73730000268DCD /* RGURLDataFetchOperation.m */,
+				0179C8761F73736700268DCD /* RGCustomNSOperation.h */,
+				0179C8771F73736700268DCD /* RGCustomNSOperation.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		0179C8751F73734C00268DCD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0179C85E1F6F863E00268DCD /* RGMockTableViewCell.h */,
+				0179C85F1F6F863E00268DCD /* RGMockTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0179C87C1F73786800268DCD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0179C8711F73734000268DCD /* RGiTunesTableCellViewModel.h */,
+				0179C8721F73734000268DCD /* RGiTunesTableCellViewModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,11 +210,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0179C8781F73736700268DCD /* RGCustomNSOperation.m in Sources */,
+				0179C86C1F73730000268DCD /* RGURLDataFetcher.m in Sources */,
 				0179C84C1F6F81EE00268DCD /* RGTableViewController.m in Sources */,
+				0179C8741F73734000268DCD /* RGiTunesTableCellViewModel.m in Sources */,
 				0179C8491F6F81EE00268DCD /* AppDelegate.m in Sources */,
 				0179C8601F6F863E00268DCD /* RGMockTableViewCell.m in Sources */,
 				0179C8461F6F81EE00268DCD /* main.m in Sources */,
 				0179C85D1F6F837800268DCD /* RGMockTableViewDataSource.m in Sources */,
+				0179C86D1F73730000268DCD /* RGURLDataFetchOperation.m in Sources */,
+				0179C8731F73734000268DCD /* RGiTunesDataParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +378,7 @@
 				0179C85A1F6F81EE00268DCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

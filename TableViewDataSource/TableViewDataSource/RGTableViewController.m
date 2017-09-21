@@ -10,9 +10,6 @@
 
 #import "RGMockTableViewDataSource.h"
 
-@interface RGTableViewController () <RGMockTableViewDataSourceListener>
-@end
-
 @implementation RGTableViewController {
   RGMockTableViewDataSource *_mockDataSource;
 }
@@ -20,7 +17,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if (self = [super initWithCoder:aDecoder]) {
-    _mockDataSource = [[RGMockTableViewDataSource alloc] initWithDataSourceListener:self];
+    _mockDataSource = [[RGMockTableViewDataSource alloc] init];
 	}
 	return self;
 }
@@ -30,6 +27,7 @@
   [super loadView];
   
   _tableView.dataSource = _mockDataSource;
+  _mockDataSource.tableView = _tableView;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -37,13 +35,6 @@
   [super viewDidAppear:animated];
   
   [_mockDataSource startGeneratingForTableView:_tableView];
-}
-
-# pragma mark - RGMockTableViewDataSourceListener methods
-
-- (void)mockDataSourceAddedNewObject
-{
-  [_tableView reloadData];
 }
 
 @end
